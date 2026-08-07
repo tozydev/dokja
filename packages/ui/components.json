@@ -1,0 +1,26 @@
+{
+  "$schema": "https://ui.shadcn.com/schema.json",
+  "style": "base-nova",
+  "rsc": true,
+  "tsx": true,
+  "tailwind": {
+    "config": "",
+    "css": "src/styles/globals.css",
+    "baseColor": "neutral",
+    "cssVariables": true
+  },
+  "iconLibrary": "lucide",
+  "aliases": {
+    "components": "@dokja/ui/components",
+    "utils": "@dokja/ui/lib/utils",
+    "hooks": "@dokja/ui/hooks",
+    "lib": "@dokja/ui/lib",
+    "ui": "@dokja/ui/components"
+  },
+  "rtl": false,
+  "menuColor": "default",
+  "menuAccent": "subtle",
+  "registries": {
+    "@neobrutalism": "https://neobrutalism.com/r/base/{name}.json"
+  }
+}

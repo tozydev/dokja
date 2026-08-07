@@ -1,0 +1,35 @@
+### General
+.DS_Store
+build/
+out/
+!**/src/**/build/
+!**/src/**/out/
+logs
+*.log
+.env
+.env.*
+!.env.example
+
+### IntelliJ
+*.iml
+*.ipr
+*.iws
+
+### Gradle
+.gradle/
+*.hprof
+local.properties
+
+### Kotlin
+.kotlin/
+
+### Node.js
+node_modules/
+dist/
+*.local
+
+### TanStack Start
+.tanstack
+
+### Cloudflare
+.wrangler

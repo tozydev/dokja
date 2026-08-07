@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: Dokja Server
+
+  threads:
+    virtual:
+      enabled: true
+
+  docker:
+    compose:
+      enabled: false
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${KEYCLOAK_ISSUER_URI}
+
+server:
+  port: 8080
+  http2:
+    enabled: true

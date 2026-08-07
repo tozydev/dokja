@@ -1,0 +1,39 @@
+name: Build
+on:
+  push:
+    branches:
+      - main
+
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  server-build:
+    uses: tozydev/gh-actions/.github/workflows/shared-gradle-build.yml@v1
+    with:
+      gradle-args: :apps:api:build --stacktrace
+    secrets:
+      github-token: ${{ github.token }}
+
+  web-build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Setup vite plus
+        uses: voidzero-dev/setup-vp@v1
+        with:
+          node-version: 24
+          cache: true
+          run-install: false
+
+      - name: Install dependencies
+        run: vp install
+
+      - name: Check
+        run: vp check
+
+      - name: Build
+        run: vp run -r build

@@ -1,0 +1,142 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+@source "../../../apps/**/*.{ts,tsx}";
+@source "../../../components/**/*.{ts,tsx}";
+@source "../**/*.{ts,tsx}";
+
+@theme inline {
+  --font-head: var(--font-head);
+  --font-sans: var(--font-sans);
+  --radius: var(--radius);
+
+  --shadow-xs: 1px 1px 0 0 var(--border);
+  --shadow-sm: 2px 2px 0 0 var(--border);
+  --shadow: 3px 3px 0 0 var(--border);
+  --shadow-md: 4px 4px 0 0 var(--border);
+  --shadow-lg: 6px 6px 0 0 var(--border);
+  --shadow-xl: 10px 10px 0 1px var(--border);
+  --shadow-2xl: 16px 16px 0 1px var(--border);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-hover: var(--primary-hover);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --font-heading: var(--font-heading);
+  --border-w: var(--border-w);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-shadow-color: var(--shadow-color);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+:root {
+  --radius: 0.75rem;
+  --background: #f4f5f7;
+  --foreground: #16181d;
+  --card: #ffffff;
+  --card-foreground: #16181d;
+  --primary: #aafc3d;
+  --primary-hover: #97f819;
+  --primary-foreground: #000000;
+  --secondary: #16181d;
+  --secondary-foreground: #f4f5f7;
+  --muted: #e5e7ec;
+  --muted-foreground: #5d626e;
+  --accent: #e2ffc0;
+  --accent-foreground: #15210a;
+  --destructive: #e63946;
+  --destructive-foreground: #fff;
+  --border: #16181d;
+  --input: #ffffff;
+  --ring: #aafc3d;
+  --popover: #ffffff;
+  --popover-foreground: #16181d;
+  --shadow-color: #16181d;
+  --chart-1: #5f4fe6;
+  --chart-2: #c4a1ff;
+  --chart-3: #ff30cd;
+  --chart-4: #01ffcc;
+  --chart-5: #ffdc58;
+  --border-w: 4px;
+  --shadow-xs: 2px 2px 0 0 var(--shadow-color);
+  --shadow-sm: 3px 3px 0 0 var(--shadow-color);
+  --shadow: 5px 5px 0 0 var(--shadow-color);
+  --shadow-md: 6px 6px 0 0 var(--shadow-color);
+  --shadow-lg: 9px 9px 0 0 var(--shadow-color);
+  --shadow-xl: 14px 14px 0 1px var(--shadow-color);
+  --shadow-2xl: 20px 20px 0 2px var(--shadow-color);
+}
+
+.dark {
+  --background: #131519;
+  --foreground: #eceef2;
+  --card: #1d2026;
+  --card-foreground: #eceef2;
+  --primary: #aafc3d;
+  --primary-hover: #97f819;
+  --primary-foreground: #000000;
+  --secondary: #eceef2;
+  --secondary-foreground: #131519;
+  --muted: #2b2f38;
+  --muted-foreground: #9aa1af;
+  --accent: #26330f;
+  --accent-foreground: #eaffcf;
+  --destructive: #ff6b6b;
+  --destructive-foreground: #1a1815;
+  --border: #000000;
+  --input: #1d2026;
+  --ring: #aafc3d;
+  --popover: #1d2026;
+  --popover-foreground: #eceef2;
+  --shadow-color: #383e4a;
+  --chart-1: #7b6df5;
+  --chart-2: #c4a1ff;
+  --chart-3: #ff7ce0;
+  --chart-4: #5eead4;
+  --chart-5: #ffdc58;
+  --radius: 0.75rem;
+  --border-w: 4px;
+  --shadow-xs: 2px 2px 0 0 var(--shadow-color);
+  --shadow-sm: 3px 3px 0 0 var(--shadow-color);
+  --shadow: 5px 5px 0 0 var(--shadow-color);
+  --shadow-md: 6px 6px 0 0 var(--shadow-color);
+  --shadow-lg: 9px 9px 0 0 var(--shadow-color);
+  --shadow-xl: 14px 14px 0 1px var(--shadow-color);
+  --shadow-2xl: 20px 20px 0 2px var(--shadow-color);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}

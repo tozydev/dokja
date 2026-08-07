@@ -1,0 +1,68 @@
+name: dokja-api-dev
+services:
+  postgres:
+    image: postgres:18-alpine
+    environment:
+      POSTGRES_DB: dokja
+      POSTGRES_USER: dokja
+      POSTGRES_PASSWORD: dokja
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    deploy:
+      resources:
+        limits:
+          memory: 512m
+
+  redis:
+    image: redis:8-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    deploy:
+      resources:
+        limits:
+          memory: 128m
+
+  rustfs:
+    image: rustfs/rustfs:latest
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      RUSTFS_ACCESS_KEY: dokja
+      RUSTFS_SECRET_KEY: dokja
+      RUSTFS_ADDRESS: ":9000"
+      RUSTFS_CONSOLE_ENABLED: true
+      RUSTFS_CONSOLE_ADDRESS: ":9001"
+    volumes:
+      - rustfs_data:/data
+    deploy:
+      resources:
+        limits:
+          memory: 256m
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.7
+    ports:
+      - "9002:8080"
+    command: start-dev --import-realm
+    environment:
+      KC_BOOTSTRAP_ADMIN_USERNAME: dokja
+      KC_BOOTSTRAP_ADMIN_PASSWORD: dokja
+      KC_JVM_ARGS: "-Xms64m -Xmx512m"
+    volumes:
+      - keycloak_data:/opt/keycloak/data
+      - ./config/dokja-dev-realm.json:/opt/keycloak/data/import/dokja-dev-realm.json
+    deploy:
+      resources:
+        limits:
+          memory: 750m
+
+volumes:
+  postgres_data:
+  redis_data:
+  rustfs_data:
+  keycloak_data:
