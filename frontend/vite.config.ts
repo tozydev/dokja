@@ -7,6 +7,7 @@ export default defineConfig({
     singleQuote: false,
     sortImports: true,
     sortTailwindcss: true,
+    proseWrap: "always",
   },
   lint: {
     ignorePatterns: [".agents/**/*", "routeTree.gen.ts"],

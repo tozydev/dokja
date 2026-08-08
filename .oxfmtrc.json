@@ -1,0 +1,6 @@
+{
+  "ignorePatterns": [".idea/"],
+  "semi": false,
+  "singleQuote": false,
+  "proseWrap": "always"
+}
