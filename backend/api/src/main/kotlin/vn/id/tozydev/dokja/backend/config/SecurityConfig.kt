@@ -1,4 +1,4 @@
-package vn.id.tozydev.dokja.server.config
+package vn.id.tozydev.dokja.backend.config
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration

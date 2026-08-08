@@ -1,4 +1,4 @@
-package vn.id.tozydev.dokja.server
+package vn.id.tozydev.dokja.backend
 
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired

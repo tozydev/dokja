@@ -1,11 +1,11 @@
-package vn.id.tozydev.dokja.server
+package vn.id.tozydev.dokja.backend
 
 import kotlin.test.Test
 import org.springframework.modulith.core.ApplicationModules
 import org.springframework.modulith.docs.Documenter
 
 class ModularityTests {
-    private var modules = ApplicationModules.of(DokjaServerApplication::class.java)
+    private var modules = ApplicationModules.of(DokjaBackendApplication::class.java)
 
     @Test
     fun `verifies modular structure`() {

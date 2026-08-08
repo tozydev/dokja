@@ -1,10 +1,10 @@
-package vn.id.tozydev.dokja.server
+package vn.id.tozydev.dokja.backend
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
-@SpringBootApplication class DokjaServerApplication
+@SpringBootApplication class DokjaBackendApplication
 
 fun main(args: Array<String>) {
-    runApplication<DokjaServerApplication>(*args)
+    runApplication<DokjaBackendApplication>(*args)
 }

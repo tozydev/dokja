@@ -13,7 +13,7 @@ dependencyResolutionManagement {
         mavenCentral()
     }
     versionCatalogs {
-        val snakeCaseSuffixGenerator: (String, String, String) -> String = { _, _, artifact ->
+        val kebabCaseSuffixGenerator: (String, String, String) -> String = { _, _, artifact ->
             artifact.replace(Regex("[._]"), "-").replaceFirstChar { it.lowercase() }
         }
 
@@ -29,20 +29,20 @@ dependencyResolutionManagement {
                         else -> ""
                     }
                 }
-                aliasSuffixGenerator = snakeCaseSuffixGenerator
+                aliasSuffixGenerator = kebabCaseSuffixGenerator
             }
         }
         generate("kotlinLibs") {
             fromToml("kotlin-bom") {
                 generateLibraryVersions = false
                 aliasPrefixGenerator = { _, _ -> "" }
-                aliasSuffixGenerator = snakeCaseSuffixGenerator
+                aliasSuffixGenerator = kebabCaseSuffixGenerator
             }
         }
         generate("awsLibs") {
             fromToml("aws-sdk-kotlin-bom") {
                 generateLibraryVersions = false
-                aliasSuffixGenerator = snakeCaseSuffixGenerator
+                aliasSuffixGenerator = kebabCaseSuffixGenerator
             }
         }
     }
