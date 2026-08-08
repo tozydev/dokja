@@ -109,6 +109,7 @@
         "tw-animate-css": "catalog:",
       },
       "devDependencies": {
+        "@tailwindcss/vite": "catalog:",
         "@types/node": "catalog:",
         "@types/react": "catalog:",
         "tailwindcss": "catalog:",

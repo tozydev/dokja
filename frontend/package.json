@@ -1,5 +1,5 @@
 {
-  "name": "dokja",
+  "name": "dokja-frontend",
   "version": "0.0.0",
   "private": true,
   "workspaces": [

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WorkspaceSettings">
+    <project name="backend" path="$PROJECT_DIR$/backend" />
+    <project name="frontend" path="$PROJECT_DIR$/frontend" />
+    <option name="workspace" value="true" />
+  </component>
+</project>

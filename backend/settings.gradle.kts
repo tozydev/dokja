@@ -48,6 +48,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "dokja"
+rootProject.name = "dokja-backend"
 
-include(":apps:api")
+include(":api")

@@ -5,7 +5,7 @@
 !.gitignore
 !vcs.xml
 !fileColors.xml
-!ktfmt.xml
+!jb-workspace.xml
 !externalDependencies.xml
 !scopes/
 !scopes/*

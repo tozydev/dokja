@@ -9,14 +9,18 @@ on:
       - main
 
 jobs:
-  server-build:
+  backend-build:
     uses: tozydev/gh-actions/.github/workflows/shared-gradle-build.yml@v1
     with:
-      gradle-args: :apps:api:build --stacktrace
+      # language=bash
+      build-script: |
+        cd backend
+        chmod +x ./gradlew
+        ./gradlew :api:build --stacktrace
     secrets:
       github-token: ${{ github.token }}
 
-  web-build:
+  frontend-build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -30,10 +34,13 @@ jobs:
           run-install: false
 
       - name: Install dependencies
+        working-directory: frontend
         run: vp install
 
       - name: Check
+        working-directory: frontend
         run: vp check
 
       - name: Build
+        working-directory: frontend
         run: vp run -r build
