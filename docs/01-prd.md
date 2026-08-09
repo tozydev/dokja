@@ -5,14 +5,15 @@
 - **Project:** DOKJA Platform
 - **Author:** tozydev
 - **Created:** 2026-08-08
-- **Updated:** 2026-08-08
-- **Version:** v1.0
+- **Updated:** 2026-08-09
+- **Version:** v1.1
 
 ### Revision History
 
-| Version | Date       | Author  | Change Description                                 |
-| ------- | ---------- | ------- | -------------------------------------------------- |
-| v1.0    | 2026-08-08 | tozydev | Initial version of the DOKJA Platform PRD document |
+| Version | Date       | Author  | Change Description                                                                                                      |
+| ------- | ---------- | ------- | ----------------------------------------------------------------------------------------------------------------------- |
+| v1.0    | 2026-08-08 | tozydev | Initial version of the DOKJA Platform PRD document                                                                      |
+| v1.1    | 2026-08-09 | tozydev | Removed F-WALLET-04 & reindexed F-WALLET; aligned Reference columns; added NFR-09 Observability & NFR-10 Audit logging. |
 
 ---
 
@@ -74,10 +75,10 @@ System Admin.
 
 ### BR-4. Devices & Accounts
 
-| Code   | Rule                              | Detail                                                                                                                                                                                                                                                                                                                             |
-| ------ | --------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| BR-4.1 | **Login device limit**            | An account can be logged in on a maximum of **3 devices** (Mobile/Tablet/Web) — configurable default.                                                                                                                                                                                                                              |
-| BR-4.2 | **Block simultaneous read/watch** | The system blocks reading/watching (streaming) at the same time on **2 or more devices** of the same account to limit sharing; applies to content reading/watching activity (opening a chapter/episode counts as reading), **not applicable** to AI features; the reading session mechanism details are designed by the architect. |
+| Code   | Rule                              | Detail                                                                                                                                                                                                                                                        |
+| ------ | --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| BR-4.1 | **Login device limit**            | An account can be logged in on a maximum of **3 devices** (Mobile/Tablet/Web) — configurable default.                                                                                                                                                         |
+| BR-4.2 | **Block simultaneous read/watch** | The system blocks reading/watching (streaming) at the same time on **2 or more devices** of the same account to limit sharing; applies to content reading/watching activity (opening a chapter/episode counts as reading), **not applicable** to AI features. |
 
 ### BR-5. Events
 
@@ -162,29 +163,26 @@ DOKJA is a digital content distribution platform with 4 main components:
 
 ### Functional
 
-> **BR Reference:** links the requirement to the corresponding business rule in the Business Rules
-> section.
-
 #### 3.1. Common Platform
 
 | Code        | Requirement                   | Detail                                                                                                                                                       | Reference |
 | ----------- | ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------- |
-| F-COMMON-01 | Registration & login          | Email/username + password; has a login session; supports logout, forgot password; optional **remember-me** (persistent login session).                       | –         |
+| F-COMMON-01 | Registration & login          | Email/username + password; has a login session; supports logout, forgot password; optional remember-me (persistent login session).                           | –         |
 | F-COMMON-02 | RBAC                          | Each account belongs to one or more roles (Reader, Content Manager, Moderator, Operation Admin, System Admin); API/UI checks permissions before each action. | –         |
 | F-COMMON-03 | Device management             | Tracks the list of logged-in devices; limits to a maximum of 3 devices; allows remote logout of a device.                                                    | BR-4.1    |
-| F-COMMON-04 | Block simultaneous read/watch | Blocks reading/watching (streaming) on the same account on ≥2 devices at the same time (details: BR-4.2).                                                    | BR-4.2    |
+| F-COMMON-04 | Block simultaneous read/watch | Blocks reading/watching (streaming) on the same account on ≥2 devices at the same time.                                                                      | BR-4.2    |
 | F-COMMON-05 | Age classification & display  | Collects date of birth at registration; each title displays a P/13+/16+/18+ label; hides/denies access to content unsuitable for the declared age.           | –         |
 
 #### 3.2. Content Consumption
 
 | Code         | Requirement                        | Detail                                                                                                                                                     | Reference      |
 | ------------ | ---------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
-| F-CONTENT-01 | Anime Streaming                    | Watch high-quality video (HD/4K) via the built-in player; encrypted streaming (DRM); Viet-subtitles (on/off); remembers watch position.                    | –              |
-| F-CONTENT-02 | Comic Reader (Webtoon)             | Read Webtoons by vertical scroll or chapter by chapter; displays well on Web/Android; remembers reading position.                                          | –              |
+| F-CONTENT-01 | Anime Streaming                    | Watch high-quality video (HD/4K) via the built-in player; encrypted streaming; remembers watch position.                                                   | –              |
+| F-CONTENT-02 | Comic Reader (Webtoon)             | Read Webtoons by vertical scroll, chapter by chapter; displays well on Web/Android; remembers reading position.                                            | –              |
 | F-CONTENT-03 | Novel Reader                       | Minimal interface; customize font size, font, background color, line spacing; remembers reading position.                                                  | –              |
-| F-CONTENT-04 | Freemium (Always Free)             | Displays Always Free chapters/episodes to the relevant audiences per configuration (BR-3.3).                                                               | BR-3.1, BR-3.3 |
-| F-CONTENT-05 | Purchase chapter/episode with Coin | Purchase individual chapters/episodes with Coin; **permanently** unlocked after purchase (coin deduction logic see F-WALLET-04).                           | BR-1.4         |
-| F-CONTENT-06 | Content via subscription           | Unlimited access to chapters/episodes of titles in the plan while the subscription is active; on expiry, access is revoked (handling: F-WALLET-09).        | BR-2.3, BR-2.4 |
+| F-CONTENT-04 | Freemium (Always Free)             | Displays Always Free chapters/episodes to the relevant audiences per configuration.                                                                        | BR-3.1, BR-3.3 |
+| F-CONTENT-05 | Purchase chapter/episode with Coin | Purchase individual chapters/episodes with Coin; permanently unlocked after purchase.                                                                      | BR-1.3, BR-1.4 |
+| F-CONTENT-06 | Content via subscription           | Unlimited access to chapters/episodes of titles in the plan while the subscription is active; on expiry, access is revoked.                                | BR-2.3, BR-2.4 |
 | F-CONTENT-07 | Title information                  | Title detail page: name, author, description, genres, age label, number of chapters/episodes, release schedule, average star rating, chapter/episode list. | –              |
 
 #### 3.3. Interaction & Personalization
@@ -193,7 +191,7 @@ DOKJA is a digital content distribution platform with 4 main components:
 | ------------- | --------------------------- | -------------------------------------------------------------------------------------------------------------------------- | --------- |
 | F-INTERACT-01 | Star Rating                 | Readers rate titles 1–5 stars; displays the average; each user rates once and can change it.                               | –         |
 | F-INTERACT-02 | Favorite                    | Add/remove titles to/from a favorites list; displayed on the profile page.                                                 | –         |
-| F-INTERACT-03 | Comments                    | Logged-in users comment by chapter/episode or by title; sorted by time; paginated.                                         | –         |
+| F-INTERACT-03 | Comments                    | Logged-in users comment by chapter/episode; sorted by time; paginated, aggregation in title detail.                        | –         |
 | F-INTERACT-04 | Automatic comment filtering | Automatically hides/flags comments containing profanity, harassment, or spoilers (keywords + algorithm, configurable).     | –         |
 | F-INTERACT-05 | Spoiler tag                 | Users tag "Spoiler" when writing a comment; spoiler comments are collapsed, showing a warning before expanding.            | –         |
 | F-INTERACT-06 | Report violations           | Users report violating comments; Moderator handles them via the Admin Portal.                                              | –         |
@@ -207,18 +205,17 @@ DOKJA is a digital content distribution platform with 4 main components:
 | ----------- | -------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------- |
 | F-WALLET-01 | Coin Wallet                      | Each user has a Coin wallet: Paid/Bonus Coin balance, total coins; transaction history (top-up, spending, bonus received, expiry).                                    | –                      |
 | F-WALLET-02 | Top up Coin via Sepay            | Select a Coin package (configured by Operation Admin), pay via Sepay; confirmation of success → add Paid Coin to the wallet.                                          | –                      |
-| F-WALLET-03 | E-invoice                        | **Always issues a personal e-invoice** via Sepay eInvoice and sends it to the registered email for every successful Coin top-up (no tax ID required).                 | –                      |
-| F-WALLET-04 | Priority deduction order         | Deduct Bonus Coin first (nearest expiry first), then Paid Coin.                                                                                                       | BR-1.3                 |
-| F-WALLET-05 | Bonus Coin expiry                | Automatically updates Bonus Coin expiry after 30 days; clearly displays the expiration time.                                                                          | BR-1.2                 |
-| F-WALLET-06 | Subscription plans               | Operation Admin creates/configures plans (Standard, Coin Bundle) with terms configured by the Admin (no hardcoded limited list) including discounts; no auto-renewal. | BR-2.5, BR-2.6, BR-2.7 |
-| F-WALLET-07 | Supported title list             | Each plan links a supported title list selected by the Operation Admin (access per title — BR-2.3); updated in real-time when titles change.                          | BR-2.5                 |
-| F-WALLET-08 | Activate subscription            | Successful payment via Sepay → activates the subscription immediately; e-invoice per F-WALLET-03.                                                                     | –                      |
-| F-WALLET-09 | Subscription expiry              | Revokes subscription access on expiry; chapters purchased with Coin retain permanent rights.                                                                          | BR-2.4                 |
-| F-WALLET-10 | Event                            | Operation Admin creates events: Coin/subscription discounts, free chapter unlocks per the BR-5.2 mechanism.                                                           | BR-5.1                 |
-| F-WALLET-11 | Unlock content from events       | Chapters/episodes unlocked per the BR-5.2 mechanism are temporarily accessible for **72 hours**.                                                                      | BR-5.2, BR-5.3         |
-| F-WALLET-12 | Temporary free (campaign)        | Operation Admin marks chapters/episodes free during a campaign; when the campaign ends they automatically revert to paid status.                                      | BR-3.4                 |
-| F-WALLET-13 | Interrupted transaction handling | Job automatically reconciles with Sepay; successful transactions where the wallet was not updated → add Coin/activate subscription within 24h.                        | BR-6.2                 |
-| F-WALLET-14 | Transaction disputes             | Admin Portal displays a list of disputes; Operation Admin handles them within a maximum of 3 working days.                                                            | –                      |
+| F-WALLET-03 | E-invoice                        | Always issues a personal e-invoice via Sepay eInvoice and sends it to the registered email for every successful Coin top-up (no tax ID required).                     | –                      |
+| F-WALLET-04 | Bonus Coin expiry                | Automatically updates Bonus Coin expiry after 30 days; clearly displays the expiration time.                                                                          | BR-1.2                 |
+| F-WALLET-05 | Subscription plans               | Operation Admin creates/configures plans (Standard, Coin Bundle) with terms configured by the Admin (no hardcoded limited list) including discounts; no auto-renewal. | BR-2.5, BR-2.6, BR-2.7 |
+| F-WALLET-06 | Supported title list             | Each plan links a supported title list selected by the Operation Admin; updated in real-time when titles change.                                                      | BR-2.3, BR-2.5         |
+| F-WALLET-07 | Activate subscription            | Successful payment via Sepay → activates the subscription immediately; e-invoice per F-WALLET-03.                                                                     | –                      |
+| F-WALLET-08 | Subscription expiry              | Revokes subscription access on expiry; chapters purchased with Coin retain permanent rights.                                                                          | BR-2.4                 |
+| F-WALLET-09 | Event                            | Operation Admin creates events: Coin/subscription discounts, free chapter unlocks per the BR-5.2 mechanism.                                                           | BR-5.1, BR-5.2         |
+| F-WALLET-10 | Unlock content from events       | Chapters/episodes unlocked per the BR-5.2 mechanism are temporarily accessible for 72 hours.                                                                          | BR-5.2, BR-5.3         |
+| F-WALLET-11 | Temporary free (campaign)        | Operation Admin marks chapters/episodes free during a campaign; when the campaign ends they automatically revert to paid status.                                      | BR-3.4                 |
+| F-WALLET-12 | Interrupted transaction handling | Job automatically reconciles with Sepay; successful transactions where the wallet was not updated → add Coin/activate subscription within 24h.                        | BR-6.2                 |
+| F-WALLET-13 | Transaction disputes             | Admin Portal displays a list of disputes; Operation Admin handles them within a maximum of 3 working days.                                                            | –                      |
 
 #### 3.5. Artificial Intelligence (AI)
 
@@ -239,11 +236,11 @@ DOKJA is a digital content distribution platform with 4 main components:
 | F-ADMIN-02 | Traffic/view dashboard         | Views/reads, active users, views by title/device/access channel.                                                                              | –                      |
 | F-ADMIN-03 | Growth reports                 | Number of registered users, paying user conversion rate, retention rate.                                                                      | –                      |
 | F-ADMIN-04 | Titles & catalog management    | Content Manager manages titles: basic info, genres, age labels, cover image; manages the **title lifecycle** per BR-8.                        | BR-8                   |
-| F-ADMIN-05 | Chapter/episode management     | Content Manager publishes chapters/episodes: upload content, release schedule, mark Always Free (subscription access per title — BR-2.3).     | BR-3.2                 |
+| F-ADMIN-05 | Chapter/episode management     | Content Manager publishes chapters/episodes: upload content, release schedule, mark Always Free.                                              | BR-2.3, BR-3.2         |
 | F-ADMIN-06 | Release schedule               | Content Manager views/edits each title's release schedule; the system reminds when a deadline approaches.                                     | –                      |
 | F-ADMIN-07 | News/Announcement Board        | Content Manager CRUD for a title's news board posts (schedule, delay, updates...); displayed publicly on the title page.                      | –                      |
 | F-ADMIN-08 | Comment & report management    | Moderator handles violating comments and user reports (hide/delete/warn); saves handling history.                                             | –                      |
-| F-ADMIN-09 | Event management               | Operation Admin creates events: name, time, promotion type, unlock mechanism (BR-5.2), applicable titles/chapters, budget.                    | BR-5.1                 |
+| F-ADMIN-09 | Event management               | Operation Admin creates events: name, time, promotion type, unlock mechanism (BR-5.2), applicable titles/chapters, budget.                    | BR-5.1, BR-5.2         |
 | F-ADMIN-10 | Plan management                | Operation Admin creates/edits/disables subscription and Coin plans (price, benefits, supported title list).                                   | BR-2.5                 |
 | F-ADMIN-11 | Account management             | System Admin views all accounts, locks/unlocks, resets passwords, assigns internal roles.                                                     | –                      |
 | F-ADMIN-12 | System parameter configuration | System Admin configures: max devices (default 3), Bonus Coin validity (default 30 days), event content validity (default 72h), AI parameters. | BR-1.2, BR-4.1, BR-5.3 |
@@ -262,17 +259,18 @@ DOKJA is a digital content distribution platform with 4 main components:
 
 ### 3.8. Non-functional
 
-| Code   | Requirement                    | Detail                                                                                                                                                       |
-| ------ | ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| NFR-01 | API performance                | Maximum API response time of **2 seconds** for 95% of requests (excluding background tasks).                                                                 |
-| NFR-02 | Load capacity                  | The system supports a minimum of **1,000 concurrent users** in the initial phase.                                                                            |
-| NFR-03 | Storage & bandwidth            | Meets minimum storage needs of **300 GB** and **50 Mbps** bandwidth (corresponding to Year 1 of the 3-year plan).                                            |
-| NFR-04 | Data security                  | Encrypts sensitive data (passwords, payment info); protects original content files (encrypted streaming, prevents unauthorized downloads).                   |
-| NFR-05 | Authentication & authorization | Uses secure JWT/session; RBAC checks permissions on both frontend and backend.                                                                               |
-| NFR-06 | Scalability                    | Modular architecture, separate API server, dedicated storage (CDN for large video/images); easy to scale nodes as users grow.                                |
-| NFR-07 | Device compatibility           | Web App supports popular browsers (Chrome, Safari, Firefox, Edge) and displays well on mobile; Mobile App supports Android 8.0 and above.                    |
-| NFR-08 | AI limits                      | Each user is limited in the number of AI calls per day (default 50, configurable); limits input length to control third-party API cost (details at F-AI-06). |
-| NFR-09 | Data synchronization           | Read history/bookmarks sync between Web and Android with a maximum latency of 1 minute.                                                                      |
+| Code   | Requirement                    | Detail                                                                                                                                                                                                                                 |
+| ------ | ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| NFR-01 | API performance                | Maximum API response time of **2 seconds** for 95% of requests (excluding background tasks).                                                                                                                                           |
+| NFR-02 | Load capacity                  | The system supports a minimum of **1,000 concurrent users** in the initial phase.                                                                                                                                                      |
+| NFR-03 | Data security                  | Encrypts sensitive data (passwords, payment info); protects original content files (encrypted streaming, prevents unauthorized downloads).                                                                                             |
+| NFR-04 | Authentication & authorization | Uses secure JWT/session; RBAC checks permissions on both frontend and backend.                                                                                                                                                         |
+| NFR-05 | Scalability                    | Modular architecture, separate API server, dedicated storage (CDN for large video/images); easy to scale nodes as users grow.                                                                                                          |
+| NFR-06 | Device compatibility           | Web App supports popular browsers (Chrome, Safari, Firefox, Edge) and displays well on mobile; Mobile App supports Android 8.0 and above.                                                                                              |
+| NFR-07 | AI limits                      | Each user is limited in the number of AI calls per day (default 50, configurable); limits input length to control third-party API cost (details at F-AI-06).                                                                           |
+| NFR-08 | Data synchronization           | Read history/bookmarks sync between Web and Android with a maximum latency of 1 minute.                                                                                                                                                |
+| NFR-09 | Observability                  | Unified logging, metrics, and tracing across API Server, Web App, Mobile App, and Admin Portal; structured logs with request IDs, key performance/error metrics, and alerting when thresholds are exceeded.                            |
+| NFR-10 | Audit logging                  | All important actions (login/logout, content edits, configuration changes, violation handling, payment transactions) are recorded with actor, timestamp, and before/after values; logs are tamper-evident and retained per compliance. |
 
 ## Out Of Scope
 
@@ -301,9 +299,9 @@ DOKJA is a digital content distribution platform with 4 main components:
 - Except for comments and ratings, the platform does not support user-uploaded content (no writing
   stories, no uploading videos).
 
-6. **Live streaming**
+6. **Live-streaming**
 
-- No live streaming support within the project scope.
+- No live-streaming support within the project scope.
 
 7. **Audio/Music content**
 
