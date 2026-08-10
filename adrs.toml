@@ -1,0 +1,16 @@
+adr_dir = "docs/decisions"
+mode = "ng"
+no_edit = true
+
+[templates]
+format = "madr"
+variant = "full"
+
+[generate]
+
+[export]
+
+[doctor]
+ignore = []
+warnings_as_errors = false
+ignore_path = []
