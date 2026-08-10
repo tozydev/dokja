@@ -1,4 +1,7 @@
-name: dokja-api-dev
+name: dokja-dev
+include:
+  - ./docker-compose.keycloak.yaml
+
 services:
   postgres:
     image: postgres:18-alpine
@@ -44,24 +47,7 @@ services:
         limits:
           memory: 256m
 
-  keycloak:
-    image: quay.io/keycloak/keycloak:26.7
-    ports:
-      - "9002:8080"
-    command: start-dev
-    environment:
-      KC_BOOTSTRAP_ADMIN_USERNAME: dokja
-      KC_BOOTSTRAP_ADMIN_PASSWORD: dokja
-      KC_JVM_ARGS: "-Xms64m -Xmx512m"
-    volumes:
-      - keycloak_data:/opt/keycloak/data
-    deploy:
-      resources:
-        limits:
-          memory: 750m
-
 volumes:
   postgres_data:
   redis_data:
   rustfs_data:
-  keycloak_data:
