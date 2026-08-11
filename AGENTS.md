@@ -10,19 +10,16 @@ Comic (Webtoon), and Novel products. Learning/demo project, not production-ready
 Monorepo with two independent build roots (separate lockfiles, separate tooling — never mix
 commands):
 
-- `frontend/` — Vite+ / bun workspace (React 19, TanStack Start, TypeScript). All tooling goes
-  through the `vp` CLI.
+- `frontend/` — Vite+ / bun workspace (TypeScript). All tooling goes through the `vp` CLI.
 - `backend/` — Gradle build, single `:api` Spring Boot module (Kotlin, JDK 25). Run `./gradlew` from
   `backend/`.
 
 Plus:
 
-- `CONTRIBUTING.md` — authoritative guide for setup, conventions, branching, and PR process. Read it
-  before first PR.
 - `docs/` — project documentation; index in `docs/README.md`. Architecture docs go in
-  `docs/architecture/`, ADRs in `docs/adr/`.
-- `.github/workflows/build.yml` — CI: backend `./gradlew :api:build`, frontend `vp install` →
-  `vp check` → `vp run -r build`.
+  `docs/architecture/`, ADRs in `docs/decisions/`.
+- `docs/frontend/` — frontend-specific documentation.
+- `docs/backend/` — backend-specific documentation.
 
 ## Agents
 
@@ -32,5 +29,7 @@ instructions:
 - `backend/AGENTS.md`
 - `frontend/AGENTS.md`
 
-Architecture work: `.agents/agents/architect.md` defines the architect agent (design-only, no
-implementation). For ADR workflows use the `adr-skill`.
+## Architecture Decision Records
+
+If the request has architecture-related context, use `adr-skill` to look up the existing ADRs. If
+not, use `adr-skill` to propose a new ADR.
