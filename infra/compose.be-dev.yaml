@@ -3,7 +3,7 @@ services:
   keycloak:
     image: quay.io/keycloak/keycloak:26.7
     ports:
-      - "9002:8080"
+      - "9000:8080"
     command: start-dev --import-realm
     environment:
       KC_BOOTSTRAP_ADMIN_USERNAME: dokja
@@ -24,7 +24,7 @@ services:
       POSTGRES_USER: dokja
       POSTGRES_PASSWORD: dokja
     ports:
-      - "5432:5432"
+      - "9010:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     deploy:
@@ -35,7 +35,7 @@ services:
   redis:
     image: redis:8-alpine
     ports:
-      - "6379:6379"
+      - "9020:6379"
     volumes:
       - redis_data:/data
     deploy:
@@ -46,8 +46,8 @@ services:
   rustfs:
     image: rustfs/rustfs:latest
     ports:
-      - "9000:9000"
-      - "9001:9001"
+      - "9030:9000"
+      - "9031:9001"
     environment:
       RUSTFS_ACCESS_KEY: dokja
       RUSTFS_SECRET_KEY: dokja
