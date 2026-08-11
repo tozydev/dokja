@@ -14,13 +14,17 @@ pre-commit:
       root: backend/
       glob: "*.{kt,kts}"
       # language=bash
-      run: |
-        ./gradlew -q --console=plain ktfmtPrecommit \
-          --include-only=$(echo {staged_files} | tr ' ' ':')
-        ./gradlew -q --console=plain check
+      run: ./gradlew -q ktfmtPrecommit --include-only=$(echo {staged_files} | tr ' ' ':')
       stage_fixed: true
     frontend-staged:
       root: frontend/
       # language=bash
       run: vp staged --allow-empty
       stage_fixed: true
+
+pre-push:
+  commands:
+    backend-check:
+      root: backend/
+      # language=bash
+      run: ./gradlew -q check
