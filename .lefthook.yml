@@ -2,23 +2,25 @@
 pre-commit:
   parallel: true
   commands:
-    root-oxfmt:
+    format:
       glob: "*"
       exclude:
         - "frontend/**"
+        - "*.{kt,kts}"
       # language=bash
       run: vpx oxfmt {staged_files} --write
       stage_fixed: true
-    backend-ktfmt:
+    backend-staged:
       root: backend/
       glob: "*.{kt,kts}"
       # language=bash
-      run: >-
-        ./gradlew -q --console=plain ktfmtPrecommit --include-only=$(echo {staged_files} | tr ' '
-        ':')
+      run: |
+        ./gradlew -q --console=plain ktfmtPrecommit \
+          --include-only=$(echo {staged_files} | tr ' ' ':')
+        ./gradlew -q --console=plain check
       stage_fixed: true
-    frontend-oxfmt:
+    frontend-staged:
       root: frontend/
       # language=bash
-      run: vp fmt {staged_files} --write
+      run: vp staged --allow-empty
       stage_fixed: true
