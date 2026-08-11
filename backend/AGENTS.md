@@ -27,19 +27,20 @@
 
 ## Commands
 
+- Use bash shell.
 - Always use `./gradlew -q --console=plain` to avoid Gradle's verbose output.
 - Use `./gradlew -q --console=plain :api:compileKotlin` for quick syntax checks.
 - Use `./gradlew -q --console=plain :api:build` to build, check and test.
 
 ## Dev Infrastructure
 
-- Use `docker-compose.yml` to run all services in development mode.
+- Use `../infra/compose.be-dev.yaml` to run all services in development mode.
 - Ports:
-  - Database: 5432
-  - Redis: 6379
-  - RustFS (Object Storage): 9000
-  - RustFS (Web UI): 9001
-  - Keycloak: 9002
+  - Keycloak: 9000
+  - Postgres: 9010
+  - Redis: 9020
+  - RustFS (Object Storage): 9030
+  - RustFS (Web UI): 9031
 
 ## Code Conventions
 
