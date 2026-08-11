@@ -1,16 +1,19 @@
 [versions]
 kotlin = "2.4.10"
+kotlinx-coroutines = "1.11.0"
 spring-boot = "4.1.0"
 springDependencyManagement = "1.1.7"
 spring-modulith = "2.1.0"
-aws-sdk-kotlin = "1.8.19"
+aws-sdk-kotlin = "1.8.27"
 ktfmt = "0.27.0"
 
 [libraries]
 kotlin-bom = { module = "org.jetbrains.kotlin:kotlin-bom", version.ref = "kotlin" }
+kotlinx-coroutines-core-jvm = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm", version.ref = "kotlinx-coroutines" }
+#noinspection UnusedVersionCatalogEntry
 spring-boot-dependencies = { module = "org.springframework.boot:spring-boot-dependencies", version.ref = "spring-boot" }
 spring-modulith-bom = { module = "org.springframework.modulith:spring-modulith-bom", version.ref = "spring-modulith" }
-aws-sdk-kotlin-bom = { module = "aws.sdk.kotlin:bom", version.ref = "aws-sdk-kotlin" }
+aws-sdk-kotlin-s3 = { module = "aws.sdk.kotlin:s3", version.ref = "aws-sdk-kotlin" }
 
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }

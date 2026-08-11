@@ -30,19 +30,6 @@ dependencyResolutionManagement {
                 aliasSuffixGenerator = kebabCaseSuffixGenerator
             }
         }
-        generate("kotlinLibs") {
-            fromToml("kotlin-bom") {
-                generateLibraryVersions = false
-                aliasPrefixGenerator = { _, _ -> "" }
-                aliasSuffixGenerator = kebabCaseSuffixGenerator
-            }
-        }
-        generate("awsLibs") {
-            fromToml("aws-sdk-kotlin-bom") {
-                generateLibraryVersions = false
-                aliasSuffixGenerator = kebabCaseSuffixGenerator
-            }
-        }
     }
 }
 
