@@ -2,6 +2,8 @@ package vn.id.tozydev.dokja.backend.config
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.core.env.Environment
+import org.springframework.core.env.Profiles
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.annotation.web.invoke
@@ -13,7 +15,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 
 @Configuration
 @EnableWebSecurity
-class SecurityConfig {
+class SecurityConfig(private val environment: Environment) {
 
     @Bean
     fun filterChain(http: HttpSecurity): SecurityFilterChain {
@@ -22,6 +24,11 @@ class SecurityConfig {
             csrf { disable() }
             sessionManagement { sessionCreationPolicy = SessionCreationPolicy.STATELESS }
             authorizeHttpRequests {
+                if (environment.acceptsProfiles(Profiles.of("dev"))) {
+                    authorize("/v3/api-docs/**", permitAll)
+                    authorize("/swagger-ui/**", permitAll)
+                    authorize("/swagger-ui.html", permitAll)
+                }
                 authorize("/api/v1/public/**", permitAll)
                 authorize(anyRequest, authenticated)
             }

@@ -25,6 +25,7 @@ dependencies {
 
     implementation(libs.kotlinx.coroutines.core.jvm)
     implementation(libs.aws.sdk.kotlin.s3)
+    implementation(libs.springdoc.openapi.starter.webmvc.ui)
 
     implementation(springLibs.spring.modulith.starter.core)
 
