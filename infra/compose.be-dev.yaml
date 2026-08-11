@@ -1,8 +1,22 @@
 name: dokja-dev
-include:
-  - ./docker-compose.keycloak.yaml
-
 services:
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.7
+    ports:
+      - "9002:8080"
+    command: start-dev --import-realm
+    environment:
+      KC_BOOTSTRAP_ADMIN_USERNAME: dokja
+      KC_BOOTSTRAP_ADMIN_PASSWORD: dokja
+      KC_JVM_ARGS: "-Xms64m -Xmx512m"
+    volumes:
+      - keycloak_data:/opt/keycloak/data
+      - ./keycloak/dokja-dev-realm.json:/opt/keycloak/data/import/dokja-dev-realm.json:ro
+    deploy:
+      resources:
+        limits:
+          memory: 750m
+
   postgres:
     image: postgres:18-alpine
     environment:
@@ -48,6 +62,7 @@ services:
           memory: 256m
 
 volumes:
+  keycloak_data:
   postgres_data:
   redis_data:
   rustfs_data:
