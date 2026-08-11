@@ -5,13 +5,13 @@ spring:
   docker:
     compose:
       enabled: true
-      file: docker-compose.yaml
+      file: ../infra/compose.be-dev.yaml
 
   security:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://localhost:9002/realms/dokja-dev
+          issuer-uri: http://localhost:9000/realms/dokja-dev
 
   autoconfigure:
     exclude:
