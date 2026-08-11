@@ -80,6 +80,26 @@ integration:
 ./gradlew :api:bootRun --args='--spring.profiles.active=dev'
 ```
 
+### 4. Git hooks (recommended)
+
+This repository uses [lefthook](https://lefthook.dev/) pre-commit hooks to auto-format changed files
+before every commit (config in `.lefthook.yml`):
+
+- **Backend** — format staged Kotlin with `ktfmt` (via the `ktfmtPrecommit` task) on commit; run
+  `./gradlew check` on push
+- **Frontend** — `vp staged` (oxfmt format + lint + type-check of staged files via the `staged`
+  block in `vite.config.ts`)
+- **Rest of the repo** — format with oxfmt via `vpx oxfmt`
+
+Install the hooks once per clone:
+
+```bash
+vpx lefthook install
+```
+
+Hooks then run automatically on `git commit`. If hooks are ever missing (e.g. after switching
+machines or cloning again), re-run the install command above.
+
 ## Development workflow
 
 ### Branching

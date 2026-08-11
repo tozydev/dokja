@@ -1,6 +1,9 @@
 import { defineConfig } from "vite-plus"
 
 export default defineConfig({
+  staged: {
+    "*": "vp check --fix",
+  },
   fmt: {
     ignorePatterns: [".idea/", "bun.lock", "routeTree.gen.ts"],
     semi: false,

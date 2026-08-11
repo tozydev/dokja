@@ -1,0 +1,30 @@
+# https://lefthook.dev/
+pre-commit:
+  parallel: true
+  commands:
+    format:
+      glob: "*"
+      exclude:
+        - "frontend/**"
+        - "*.{kt,kts}"
+      # language=bash
+      run: vpx oxfmt {staged_files} --write
+      stage_fixed: true
+    backend-staged:
+      root: backend/
+      glob: "*.{kt,kts}"
+      # language=bash
+      run: ./gradlew -q ktfmtPrecommit --include-only=$(echo {staged_files} | tr ' ' ':')
+      stage_fixed: true
+    frontend-staged:
+      root: frontend/
+      # language=bash
+      run: vp staged --allow-empty
+      stage_fixed: true
+
+pre-push:
+  commands:
+    backend-check:
+      root: backend/
+      # language=bash
+      run: ./gradlew -q check

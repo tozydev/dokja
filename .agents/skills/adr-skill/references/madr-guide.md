@@ -9,8 +9,8 @@ readers know the record is complete.
 
 ### Frontmatter (managed by adrs)
 
-`number`, `title`, `status`, `date` (plus `tags`/`deciders` in NextGen mode). Don't hand-edit
-number or date. Bump the date when the record is materially updated.
+`number`, `title`, `status`, `date` (plus `tags`/`deciders` in NextGen mode). Don't hand-edit number
+or date. Bump the date when the record is materially updated.
 
 ### Context and Problem Statement (mandatory)
 
@@ -22,8 +22,8 @@ problem without prior context.
 ### Decision Drivers (optional but recommended)
 
 Bulleted list of forces that push the decision: quality attributes (performance, scalability,
-security), constraints (licensing, team skills, budget), and concerns. These become the criteria
-the options are judged against. Normalise drivers to the same level of abstraction.
+security), constraints (licensing, team skills, budget), and concerns. These become the criteria the
+options are judged against. Normalise drivers to the same level of abstraction.
 
 ### Considered Options (mandatory)
 
@@ -32,9 +32,9 @@ database"). Every option must get a fair treatment in "Pros and Cons"; no straw 
 
 ### Decision Outcome (mandatory)
 
-- `Chosen option: "X", because <justification>` — justify against drivers: "only option meeting
-  k.o. criterion Y", "resolves force Z", or "came out best in weighted comparison". Avoid
-  justification by authority ("team prefers it") without a driver-based reason.
+- `Chosen option: "X", because <justification>` — justify against drivers: "only option meeting k.o.
+  criterion Y", "resolves force Z", or "came out best in weighted comparison". Avoid justification
+  by authority ("team prefers it") without a driver-based reason.
 - `### Consequences` — bullet good AND bad consequences of the choice.
 - `### Confirmation` — how compliance/implementation is verified: design review, ArchUnit test,
   fitness function. Include it; it turns the ADR into an enforceable contract.
@@ -42,8 +42,8 @@ database"). Every option must get a fair treatment in "Pros and Cons"; no straw 
 ### Pros and Cons of the Options (optional)
 
 One subsection per considered option. Each bullet is `Good/Neutral/Bad, because <argument>`.
-Arguments must be concrete and traceable to drivers. An option with only good or only bad
-arguments is a sign of a loaded comparison — fix it.
+Arguments must be concrete and traceable to drivers. An option with only good or only bad arguments
+is a sign of a loaded comparison — fix it.
 
 ### More Information (optional)
 
@@ -97,4 +97,5 @@ agreement, a record of the decision, and a realization/review plan.
 - MADR template explained: https://www.ozimmer.ch/practices/2022/11/22/MADRTemplatePrimer.html
 - How to create ADRs (and how not to): https://www.ozimmer.ch/practices/2023/04/03/ADRCreation.html
 - How to review ADRs: https://www.ozimmer.ch/practices/2023/04/05/ADRReview.html
-- Architectural Significance Test: https://www.ozimmer.ch/practices/2020/09/24/ASRTestECSADecisions.html
+- Architectural Significance Test:
+  https://www.ozimmer.ch/practices/2020/09/24/ASRTestECSADecisions.html

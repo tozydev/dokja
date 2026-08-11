@@ -1,6 +1,11 @@
 ---
 name: adr-skill
-description: "Capture and manage Architecture Decision Records (ADRs) in MADR format using the adrs CLI. Interviews the user before writing — asks questions, offers suggestions and recommendations, and never assumes. Use when a new architectural decision needs recording, an existing decision is superseded/deprecated/rejected, ADRs need linking or status updates, or the decision log (docs/decisions) needs review or auditing."
+description:
+  "Capture and manage Architecture Decision Records (ADRs) in MADR format using the adrs CLI.
+  Interviews the user before writing — asks questions, offers suggestions and recommendations, and
+  never assumes. Use when a new architectural decision needs recording, an existing decision is
+  superseded/deprecated/rejected, ADRs need linking or status updates, or the decision log
+  (docs/decisions) needs review or auditing."
 ---
 
 # ADR Skill
@@ -15,8 +20,8 @@ know what the user hasn't told you.
 
 ## Capture Workflow (interview-first)
 
-Never run `adrs new` before the conversation below. The MADR needs context, drivers, options, and
-a justified outcome — get them from the user, not from thin air.
+Never run `adrs new` before the conversation below. The MADR needs context, drivers, options, and a
+justified outcome — get them from the user, not from thin air.
 
 ### 1. Orient
 
@@ -32,9 +37,9 @@ each answer so the user can correct you. Follow the skeleton in order:
 decision & scope → context (problem/question) → decision drivers → considered options → chosen
 option & why → consequences → confirmation.
 
-When the user hesitates or seems unsure, offer suggestions ("A common approach here is X — does
-that fit your situation?") instead of leaving an open-ended blank. When the user says they don't
-know something, propose a reasonable default, mark it as a proposal, and move on — don't interrogate.
+When the user hesitates or seems unsure, offer suggestions ("A common approach here is X — does that
+fit your situation?") instead of leaving an open-ended blank. When the user says they don't know
+something, propose a reasonable default, mark it as a proposal, and move on — don't interrogate.
 
 ### 3. Draft the ADR
 
@@ -64,8 +69,8 @@ Run `adrs doctor`, regenerate the toc if `docs/decisions/README.md` exists
 - **Recommend, don't decide**: if the user is undecided, give one recommendation with reasoning tied
   to the drivers, then let them decide. Never silently pick an option or a status.
 - **Don't mark accepted** unless the user says the decision is made.
-- **Vague topic → ask**: if the user says "write an ADR about X" and X is unclear, ask what
-  decision X is committing the project to before drafting anything.
+- **Vague topic → ask**: if the user says "write an ADR about X" and X is unclear, ask what decision
+  X is committing the project to before drafting anything.
 
 ## Managing Existing ADRs
 
@@ -83,8 +88,8 @@ Standard statuses: `proposed` (default) → `accepted`, `deprecated`, `supersede
 
 - Reversing a past decision: `adrs new --supersedes 2 "Use MySQL instead"` — never rewrite an
   accepted ADR's outcome; supersede it.
-- Related decisions: `adrs link 3 Amends 1` — auto-derives the reverse link. Kinds: Amends /
-  Amended by, Relates to (symmetric), Supersedes / Superseded by.
+- Related decisions: `adrs link 3 Amends 1` — auto-derives the reverse link. Kinds: Amends / Amended
+  by, Relates to (symmetric), Supersedes / Superseded by.
 - When the user asks to "update" a decision, clarify _amend_ (fix content, same decision) vs
   _supersede_ (new decision replaces old).
 
