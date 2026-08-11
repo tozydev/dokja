@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: Dokja Integration Test
+
+  main:
+    banner-mode: off
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:9000/realms/dokja-dev
