@@ -27,7 +27,6 @@ dependencies {
     implementation(libs.aws.sdk.kotlin.s3)
 
     implementation(springLibs.spring.modulith.starter.core)
-    // implementation(springLibs.spring.modulith.starter.jpa)
 
     developmentOnly(springLibs.spring.boot.devtools)
     developmentOnly(springLibs.spring.boot.docker.compose)
