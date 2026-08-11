@@ -7,9 +7,7 @@ plugins {
     alias(libs.plugins.ktfmt)
 }
 
-ktfmt {
-    kotlinLangStyle()
-}
+ktfmt { kotlinLangStyle() }
 
 tasks {
     register("check") {

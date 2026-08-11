@@ -9,9 +9,7 @@ plugins {
 }
 
 dependencyResolutionManagement {
-    repositories {
-        mavenCentral()
-    }
+    repositories { mavenCentral() }
     versionCatalogs {
         val kebabCaseSuffixGenerator: (String, String, String) -> String = { _, _, artifact ->
             artifact.replace(Regex("[._]"), "-").replaceFirstChar { it.lowercase() }

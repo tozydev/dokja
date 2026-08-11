@@ -18,22 +18,14 @@ class SecurityConfig {
     @Bean
     fun filterChain(http: HttpSecurity): SecurityFilterChain {
         http {
-            cors {
-                configurationSource = corsConfigurationSource()
-            }
-            csrf {
-                disable()
-            }
-            sessionManagement {
-                sessionCreationPolicy = SessionCreationPolicy.STATELESS
-            }
+            cors { configurationSource = corsConfigurationSource() }
+            csrf { disable() }
+            sessionManagement { sessionCreationPolicy = SessionCreationPolicy.STATELESS }
             authorizeHttpRequests {
                 authorize("/api/v1/public/**", permitAll)
                 authorize(anyRequest, authenticated)
             }
-            oauth2ResourceServer {
-                jwt {}
-            }
+            oauth2ResourceServer { jwt {} }
         }
         return http.build()
     }

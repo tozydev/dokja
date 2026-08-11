@@ -53,9 +53,7 @@ dependencies {
 kotlin {
     jvmToolchain(25)
 
-    compilerOptions {
-        freeCompilerArgs.addAll("-Xjsr305=strict")
-    }
+    compilerOptions { freeCompilerArgs.addAll("-Xjsr305=strict") }
 }
 
 allOpen {
@@ -64,12 +62,6 @@ allOpen {
     annotation("jakarta.persistence.Embeddable")
 }
 
-ktfmt {
-    kotlinLangStyle()
-}
+ktfmt { kotlinLangStyle() }
 
-tasks {
-    withType<Test> {
-        useJUnitPlatform()
-    }
-}
+tasks { withType<Test> { useJUnitPlatform() } }
