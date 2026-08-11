@@ -7,14 +7,26 @@ spring:
       enabled: true
       file: ../infra/compose.be-dev.yaml
 
+  datasource:
+    url: jdbc:postgresql://localhost:9010/dokja
+    username: dokja
+    password: dokja
+
+  data:
+    redis:
+      host: localhost
+      port: 9020
+
   security:
     oauth2:
       resourceserver:
         jwt:
           issuer-uri: http://localhost:9000/realms/dokja-dev
 
-  autoconfigure:
-    exclude:
-      - org.springframework.boot.jdbc.autoconfigure.DataSourceAutoConfiguration
-      - org.springframework.boot.hibernate.autoconfigure.HibernateJpaAutoConfiguration
-      - org.springframework.boot.flyway.autoconfigure.FlywayAutoConfiguration
+app:
+  storage:
+    s3:
+      endpoint: http://localhost:9030
+      region: vi
+      access-key: dokja
+      secret-key: dokja

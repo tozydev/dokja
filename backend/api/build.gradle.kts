@@ -10,7 +10,6 @@ plugins {
 dependencies {
     implementation(platform(libs.kotlin.bom))
     implementation(platform(libs.spring.modulith.bom))
-    implementation(platform(libs.aws.sdk.kotlin.bom))
 
     implementation(springLibs.spring.boot.starter.data.jpa)
     implementation(springLibs.spring.boot.starter.data.redis)
@@ -21,13 +20,13 @@ dependencies {
     implementation(springLibs.spring.boot.starter.webmvc)
 
     implementation(springLibs.jackson.module.kotlin)
-    implementation(kotlinLibs.kotlin.reflect)
+    implementation(springLibs.kotlin.reflect)
     implementation(springLibs.flyway.database.postgresql)
 
-    implementation(awsLibs.kotlin.s3)
+    implementation(libs.kotlinx.coroutines.core.jvm)
+    implementation(libs.aws.sdk.kotlin.s3)
 
     implementation(springLibs.spring.modulith.starter.core)
-    // implementation(springLibs.spring.modulith.starter.jpa)
 
     developmentOnly(springLibs.spring.boot.devtools)
     developmentOnly(springLibs.spring.boot.docker.compose)
@@ -42,10 +41,11 @@ dependencies {
     testImplementation(springLibs.spring.boot.starter.security.oauth2.resource.server.test)
     testImplementation(springLibs.spring.boot.starter.webmvc.test)
     testImplementation(springLibs.spring.boot.testcontainers)
-    testImplementation(kotlinLibs.kotlin.test.junit5)
+    testImplementation(springLibs.kotlin.test.junit5)
     testImplementation(springLibs.spring.modulith.starter.test)
     testImplementation(springLibs.testcontainers.junit.jupiter)
     testImplementation(springLibs.testcontainers.postgresql)
+    testImplementation(springLibs.testcontainers.redis)
 
     testRuntimeOnly(springLibs.junit.platform.launcher)
 }
