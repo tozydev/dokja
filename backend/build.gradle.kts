@@ -1,3 +1,5 @@
+import com.ncorti.ktfmt.gradle.tasks.KtfmtFormatTask
+
 plugins {
     alias(libs.plugins.kotlin.jvm) apply false
     alias(libs.plugins.kotlin.spring) apply false
@@ -13,5 +15,12 @@ tasks {
     register("check") {
         description = "Runs all checks."
         dependsOn(ktfmtCheck, ktfmtCheckScripts)
+    }
+
+    register<KtfmtFormatTask>("ktfmtPrecommit") {
+        description =
+            "Reformats only the files passed via --include-only (used by the pre-commit hook)."
+        source = project.fileTree(rootDir)
+        include("**/*.kt", "**/*.kts")
     }
 }
