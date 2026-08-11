@@ -112,7 +112,6 @@ Standard statuses: `proposed` (default) → `accepted`, `deprecated`, `supersede
 - The `number`/`date` in frontmatter are managed by adrs — use `adrs renumber` if a number is wrong
   or duplicated; don't hand-edit.
 - Don't rename or delete ADR files to renumber history; supersede instead.
-- `0001-record-architecture-decisions.md` is the bootstrapping ADR created by `adrs init`.
 
 ## Resources
 
