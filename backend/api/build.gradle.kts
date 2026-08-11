@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.kotlin.jpa)
     alias(libs.plugins.spring.boot)
     alias(libs.plugins.spring.dependency.management)
+    alias(libs.plugins.ktfmt)
 }
 
 dependencies {
@@ -63,6 +64,12 @@ allOpen {
     annotation("jakarta.persistence.Embeddable")
 }
 
-tasks.withType<Test> {
-    useJUnitPlatform()
+ktfmt {
+    kotlinLangStyle()
+}
+
+tasks {
+    withType<Test> {
+        useJUnitPlatform()
+    }
 }
