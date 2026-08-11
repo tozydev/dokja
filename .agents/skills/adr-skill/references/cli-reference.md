@@ -1,7 +1,7 @@
 # adrs CLI Reference (v0.11.0)
 
-Compatible with adr-tools repositories. Supports Nygard and MADR 4.0.0 formats.
-This repo's `adrs.toml` sets MADR + NextGen mode, so most format flags are unnecessary.
+Compatible with adr-tools repositories. Supports Nygard and MADR 4.0.0 formats. This repo's
+`adrs.toml` sets MADR + NextGen mode, so most format flags are unnecessary.
 
 Global options:
 
@@ -39,8 +39,8 @@ adrs new --template /path/to/custom.tmpl "Title" # custom template overrides all
 
 ### edit
 
-Open an existing ADR in the editor (or with `--no-edit`, print/edit via other means). Use when
-the user wants to amend typos, add detail, or adjust status.
+Open an existing ADR in the editor (or with `--no-edit`, print/edit via other means). Use when the
+user wants to amend typos, add detail, or adjust status.
 
 ### list
 
@@ -77,8 +77,8 @@ adrs status 4 rejected
 adrs status 3 "In Review"        # custom status
 ```
 
-Standard statuses: proposed (default), accepted, deprecated, superseded, rejected.
-Use `--by N` with `superseded` to link the replacing ADR.
+Standard statuses: proposed (default), accepted, deprecated, superseded, rejected. Use `--by N` with
+`superseded` to link the replacing ADR.
 
 ### renumber
 
@@ -86,8 +86,8 @@ Repair duplicate or misassigned ADR numbers.
 
 ### doctor
 
-Repository health checks. Configured via `[doctor]` in `adrs.toml`
-(`ignore`, `warnings_as_errors`). Run before finishing any ADR batch.
+Repository health checks. Configured via `[doctor]` in `adrs.toml` (`ignore`, `warnings_as_errors`).
+Run before finishing any ADR batch.
 
 ## Other Commands
 
@@ -113,6 +113,6 @@ Keys used in this repo: `adr_dir`, `mode` (ng), `no_edit`, `[templates]` (format
 
 ## NextGen Frontmatter
 
-YAML frontmatter fields managed by adrs (MADR/NextGen mode): `number`, `title`, `status`,
-`date`, plus optional `tags`, `deciders`, `consulted`, `informed`. Number and date are
-tool-managed — don't edit them by hand.
+YAML frontmatter fields managed by adrs (MADR/NextGen mode): `number`, `title`, `status`, `date`,
+plus optional `tags`, `deciders`, `consulted`, `informed`. Number and date are tool-managed — don't
+edit them by hand.

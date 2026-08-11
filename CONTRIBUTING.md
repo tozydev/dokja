@@ -85,8 +85,8 @@ integration:
 This repository uses [lefthook](https://lefthook.dev/) pre-commit hooks to auto-format changed files
 before every commit (config in `.lefthook.yml`):
 
-- **Backend** — format staged Kotlin with `ktfmt` (via the `ktfmtPrecommit` task), then run
-  `./gradlew check` to validate the whole backend is ktfmt-compliant
+- **Backend** — format staged Kotlin with `ktfmt` (via the `ktfmtPrecommit` task) on commit; run
+  `./gradlew check` on push
 - **Frontend** — `vp staged` (oxfmt format + lint + type-check of staged files via the `staged`
   block in `vite.config.ts`)
 - **Rest of the repo** — format with oxfmt via `vpx oxfmt`

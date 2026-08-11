@@ -1,5 +1,5 @@
 {
-  "ignorePatterns": [".idea/", "lefthook.yml"],
+  "ignorePatterns": [".idea/", "lefthook.yml", "*.{kt,kts}"],
   "semi": false,
   "singleQuote": false,
   "proseWrap": "always"
