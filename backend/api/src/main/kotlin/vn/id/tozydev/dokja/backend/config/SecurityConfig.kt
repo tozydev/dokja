@@ -28,6 +28,7 @@ class SecurityConfig(private val environment: Environment) {
                     authorize("/v3/api-docs/**", permitAll)
                     authorize("/swagger-ui/**", permitAll)
                     authorize("/swagger-ui.html", permitAll)
+                    authorize("/actuator/**", permitAll)
                 }
                 authorize("/api/v1/public/**", permitAll)
                 authorize(anyRequest, authenticated)

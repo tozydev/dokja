@@ -1,0 +1,30 @@
+spring:
+  docker:
+    compose:
+      file:
+        - ../infra/compose.be-dev.yaml
+        - ../infra/compose.obs-dev.yaml
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+  opentelemetry:
+    enabled: true
+    logging:
+      export:
+        otlp:
+          endpoint: http://localhost:9041/v1/logs
+
+    tracing:
+      export:
+        otlp:
+          endpoint: http://localhost:9041/v1/traces
+
+  otlp:
+    metrics:
+      export:
+        enabled: true
+        url: http://localhost:9041/v1/metrics
