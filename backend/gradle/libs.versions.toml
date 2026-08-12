@@ -7,6 +7,7 @@ spring-modulith = "2.1.0"
 aws-sdk-kotlin = "1.8.27"
 springdoc = "3.1.0"
 ktfmt = "0.27.0"
+opentelemetry-instrumentation = "2.30.0-alpha"
 
 [libraries]
 kotlin-bom = { module = "org.jetbrains.kotlin:kotlin-bom", version.ref = "kotlin" }
@@ -16,6 +17,8 @@ spring-boot-dependencies = { module = "org.springframework.boot:spring-boot-depe
 spring-modulith-bom = { module = "org.springframework.modulith:spring-modulith-bom", version.ref = "spring-modulith" }
 aws-sdk-kotlin-s3 = { module = "aws.sdk.kotlin:s3", version.ref = "aws-sdk-kotlin" }
 springdoc-openapi-starter-webmvc-ui = { module = "org.springdoc:springdoc-openapi-starter-webmvc-ui", version.ref = "springdoc" }
+opentelemetry-logback-appender = { module = "io.opentelemetry.instrumentation:opentelemetry-logback-appender-1.0", version.ref = "opentelemetry-instrumentation" }
+opentelemetry-api-incubator = { module = "io.opentelemetry:opentelemetry-api-incubator", version = { strictly = "1.62.0-alpha" } }
 
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
