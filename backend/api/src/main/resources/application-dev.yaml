@@ -30,3 +30,9 @@ app:
       region: vi
       access-key: dokja
       secret-key: dokja
+
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true
