@@ -1,0 +1,13 @@
+management:
+  opentelemetry:
+    enabled: true
+
+  tracing:
+    sampling:
+      probability: 1.0
+
+  otlp:
+    metrics:
+      export:
+        enabled: true
+        step: 2s
