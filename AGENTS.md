@@ -16,8 +16,8 @@ commands):
 
 Plus:
 
-- `docs/` — project documentation; index in `docs/README.md`. Architecture docs go in
-  `docs/architecture/`, ADRs in `docs/decisions/`.
+- `docs/` — project documentation; index in `docs/README.md`.
+- `docs/decisions/` — architecture decision records (ADRs).
 - `docs/frontend/` — frontend-specific documentation.
 - `docs/backend/` — backend-specific documentation.
 
