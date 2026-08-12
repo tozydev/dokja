@@ -35,12 +35,16 @@
 ## Dev Infrastructure
 
 - Use `../infra/compose.be-dev.yaml` to run all services in development mode.
+- Use `../infra/compose.obs-dev.yaml` for observability (OpenTelemetry Collector + OpenObserve).
 - Ports:
   - Keycloak: 9000
   - Postgres: 9010
   - Redis: 9020
   - RustFS (Object Storage): 9030
   - RustFS (Web UI): 9031
+  - OTLP (gRPC): 9040
+  - OTLP (HTTP): 9041
+  - OpenObserve (UI/API): 9050
 
 ## Code Conventions
 
