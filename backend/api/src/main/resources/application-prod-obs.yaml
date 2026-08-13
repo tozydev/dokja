@@ -1,0 +1,10 @@
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,loggers
+
+  opentelemetry:
+    enabled: true
+    resource-attributes:
+      deployment.environment: production

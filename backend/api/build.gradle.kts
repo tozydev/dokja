@@ -11,12 +11,14 @@ dependencies {
     implementation(platform(libs.kotlin.bom))
     implementation(platform(libs.spring.modulith.bom))
 
+    implementation(springLibs.spring.boot.starter.actuator)
     implementation(springLibs.spring.boot.starter.data.jpa)
     implementation(springLibs.spring.boot.starter.data.redis)
     implementation(springLibs.spring.boot.starter.flyway)
+    implementation(springLibs.spring.boot.starter.opentelemetry)
     implementation(springLibs.spring.boot.starter.security)
-    implementation(springLibs.spring.boot.starter.oauth2.client)
-    implementation(springLibs.spring.boot.starter.oauth2.resource.server)
+    implementation(springLibs.spring.boot.starter.security.oauth2.client)
+    implementation(springLibs.spring.boot.starter.security.oauth2.resource.server)
     implementation(springLibs.spring.boot.starter.webmvc)
 
     implementation(springLibs.jackson.module.kotlin)
@@ -26,6 +28,8 @@ dependencies {
     implementation(libs.kotlinx.coroutines.core.jvm)
     implementation(libs.aws.sdk.kotlin.s3)
     implementation(libs.springdoc.openapi.starter.webmvc.ui)
+    implementation(libs.opentelemetry.logback.appender)
+    implementation(libs.opentelemetry.api.incubator)
 
     implementation(springLibs.spring.modulith.starter.core)
 
@@ -34,9 +38,13 @@ dependencies {
 
     runtimeOnly(springLibs.postgresql)
     runtimeOnly(springLibs.spring.modulith.runtime)
+    runtimeOnly(springLibs.micrometer.registry.otlp)
 
+    testImplementation(springLibs.spring.boot.starter.actuator.test)
     testImplementation(springLibs.spring.boot.starter.data.jpa.test)
+    testImplementation(springLibs.spring.boot.starter.data.redis.test)
     testImplementation(springLibs.spring.boot.starter.flyway.test)
+    testImplementation(springLibs.spring.boot.starter.opentelemetry.test)
     testImplementation(springLibs.spring.boot.starter.security.test)
     testImplementation(springLibs.spring.boot.starter.security.oauth2.client.test)
     testImplementation(springLibs.spring.boot.starter.security.oauth2.resource.server.test)
