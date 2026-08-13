@@ -5,7 +5,7 @@ spring:
   docker:
     compose:
       enabled: true
-      file: ../infra/compose.be-dev.yaml
+      file: ../infra/compose.dev.yaml
 
   datasource:
     url: ${DATASOURCE_URL:jdbc:postgresql://localhost:9010/dokja}
