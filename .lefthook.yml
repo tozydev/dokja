@@ -8,7 +8,7 @@ pre-commit:
         - "frontend/**"
         - "*.{kt,kts}"
       # language=bash
-      run: vpx oxfmt {staged_files} --write
+      run: vpx oxfmt {staged_files} --write --no-error-on-unmatched-pattern
       stage_fixed: true
     backend-staged:
       root: backend/
