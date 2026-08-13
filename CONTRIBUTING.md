@@ -15,7 +15,7 @@ The repository is a monorepo with two **independent build roots**:
 - Git
 - Vite Plus, Node.js >= 24 and bun
 - JDK 25
-- Docker (optional, for local dev infrastructure)
+- Docker & Docker Compose (optional, for local dev infrastructure)
 
 ## Setup
 
@@ -36,6 +36,12 @@ vp install   # install dependencies
 vp dev       # start dev server
 ```
 
+Start the local dev infrastructure (Postgres, Redis, RustFS, Keycloak) and the backend API first:
+
+```bash
+./infra/dokja-dev.sh up api   # from repo root, start dev infrastructure + API
+```
+
 ### Backend
 
 Run all commands from `backend/` using `./gradlew`:
@@ -45,12 +51,11 @@ cd backend
 ./gradlew :api:build    # compile + test
 ```
 
-Start local infrastructure (Postgres, Redis, RustFS, Keycloak) with `infra/compose.be-dev.yaml`,
-then run the app:
+Start the local dev infrastructure (Postgres, Redis, RustFS, Keycloak), then run the app:
 
 ```bash
-docker compose -f ../infra/compose.be-dev.yaml up -d
-./gradlew :api:bootRun
+./infra/dokja-dev.sh up   # from repo root, start dev infrastructure
+./gradlew :api:bootRun    # from backend/
 ```
 
 ### Git hooks
