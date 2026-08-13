@@ -351,8 +351,7 @@ Idempotency-Key: 0197b9b6-...
 ## 10. Observability
 
 - Every error response carries an `X-Trace-Id` header (NFR-09): the trace id of the current
-  OpenTelemetry span, or a random 32-char hex value when tracing is unavailable. Successful
-  responses do not.
+  OpenTelemetry span. Successful responses do not.
 - The trace id correlates the error with logs, metrics, and distributed traces.
 - All logs include the request context (trace id, request path, authenticated user id).
 
