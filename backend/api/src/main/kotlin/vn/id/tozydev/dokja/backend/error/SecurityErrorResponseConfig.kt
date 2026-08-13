@@ -2,6 +2,7 @@ package vn.id.tozydev.dokja.backend.error
 
 import jakarta.servlet.http.HttpServletResponse
 import java.net.URI
+import org.slf4j.LoggerFactory
 import org.springframework.context.MessageSource
 import org.springframework.context.MessageSourceAware
 import org.springframework.context.annotation.Bean
@@ -22,6 +23,7 @@ class SecurityErrorResponseConfig(
     private val problemDetailJsonMapper: JsonMapper,
     private val problemDetailDecorator: ProblemDetailDecorator,
 ) : MessageSourceAware {
+    private val logger = LoggerFactory.getLogger(javaClass)
     private val bearerTokenAuthenticationEntryPoint = BearerTokenAuthenticationEntryPoint()
     private val bearerTokenAccessDeniedHandler = BearerTokenAccessDeniedHandler()
 
@@ -69,6 +71,13 @@ class SecurityErrorResponseConfig(
         title: String,
         detail: String,
     ) {
+        if (response.isCommitted) {
+            if (logger.isWarnEnabled) {
+                logger.warn("Response already committed. Ignoring: $ex")
+            }
+            return
+        }
+
         response.status = status.value()
         response.contentType = MediaType.APPLICATION_PROBLEM_JSON_VALUE
 
