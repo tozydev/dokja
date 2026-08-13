@@ -19,6 +19,7 @@ dependencies {
     implementation(springLibs.spring.boot.starter.security)
     implementation(springLibs.spring.boot.starter.security.oauth2.client)
     implementation(springLibs.spring.boot.starter.security.oauth2.resource.server)
+    implementation(springLibs.spring.boot.starter.validation)
     implementation(springLibs.spring.boot.starter.webmvc)
 
     implementation(springLibs.jackson.module.kotlin)
