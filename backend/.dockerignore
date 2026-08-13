@@ -1,0 +1,11 @@
+.agents/
+.gradle/
+.idea/
+.kotlin/
+build/
+out/
+!**/src/**/build/
+!**/src/**/out/
+docs/
+README.md
+AGENTS.md

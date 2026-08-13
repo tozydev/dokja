@@ -8,28 +8,28 @@ spring:
       file: ../infra/compose.be-dev.yaml
 
   datasource:
-    url: jdbc:postgresql://localhost:9010/dokja
-    username: dokja
-    password: dokja
+    url: ${DATASOURCE_URL:jdbc:postgresql://localhost:9010/dokja}
+    username: ${DATASOURCE_USERNAME:dokja}
+    password: ${DATASOURCE_PASSWORD:dokja}
 
   data:
     redis:
-      host: localhost
-      port: 9020
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:9020}
 
   security:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://localhost:9000/realms/dokja-dev
+          issuer-uri: ${KEYCLOAK_ISSUER_URI:http://localhost:9000/realms/dokja-dev}
 
 app:
   storage:
     s3:
-      endpoint: http://localhost:9030
-      region: vi
-      access-key: dokja
-      secret-key: dokja
+      endpoint: ${S3_ENDPOINT:http://localhost:9030}
+      region: ${S3_REGION:vi}
+      access-key: ${S3_ACCESS_KEY:dokja}
+      secret-key: ${S3_SECRET_KEY:dokja}
 
 springdoc:
   api-docs:
