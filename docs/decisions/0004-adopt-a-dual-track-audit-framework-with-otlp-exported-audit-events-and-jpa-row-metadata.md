@@ -40,12 +40,11 @@ row-level provenance through JPA auditing, all through the OTLP pipeline already
 
 The framework combines two complementary mechanisms:
 
-- **Event-based audit**: audited actions publish domain/application events via Spring event
-  publication. An audit listener serializes a structured audit event (actor, action, resource,
-  before/after, timestamp, request ID, source IP, trace ID) and exports it directly through the
-  OpenTelemetry Logs Bridge API as a structured OTLP log record → Collector → OpenObserve, setting
-  the fields as typed OTel attributes and an `audit.event` discriminator rather than routing through
-  logback.
+- **Event-based audit**: audited actions publish a dedicated audit event (actor, action, resource
+  type/id, before/after, timestamp, trace ID, source IP) through Spring's application event bus. A
+  listener exports it directly through the OpenTelemetry Logs Bridge API as a structured OTLP log
+  record → Collector → OpenObserve, setting the fields as typed OTel attributes and an `audit.event`
+  discriminator rather than routing through logback.
 - **Row-based metadata audit**: a base `@MappedSuperclass` entity with `createdAt`/`createdBy`/
   `updatedAt`/`updatedBy`, backed by `@EnableJpaAuditing` and an `AuditorAware` that resolves the
   Keycloak JWT subject (from ADR-1) as the actor.
@@ -56,8 +55,7 @@ The framework combines two complementary mechanisms:
 
 - Good, because no new infrastructure is required; the audit stream reuses the OpenTelemetry
   collector and OpenObserve deployment.
-- Good, because event publication decouples audit producers from consumers and the event publication
-  registry/outbox provides delivery guarantees.
+- Good, because event publication decouples audit producers from consumers.
 - Good, because row-level provenance comes from JPA auditing with minimal per-entity code.
 - Bad, because OpenObserve logs are mutable and not tamper-evident; this is an accepted limitation
   for the learning/demo scope. Hardening (append-only storage, hash-chaining) is deferred to a
