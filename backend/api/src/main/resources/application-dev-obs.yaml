@@ -2,8 +2,10 @@ spring:
   docker:
     compose:
       file:
-        - ../infra/compose.be-dev.yaml
-        - ../infra/compose.obs-dev.yaml
+        - ../infra/compose.dev.yaml
+      profiles:
+        active:
+          - obs
 
 management:
   endpoints:

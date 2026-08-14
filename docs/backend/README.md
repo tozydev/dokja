@@ -4,6 +4,6 @@ This directory contains the backend-specific documentation.
 
 ## Index
 
-| ID  | Title |
-| --- | ----- |
-|     |       |
+| ID  | Title                                  |
+| --- | -------------------------------------- |
+| 01  | [Error Handling](01-error-handling.md) |

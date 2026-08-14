@@ -8,14 +8,20 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.annotation.web.invoke
 import org.springframework.security.config.http.SessionCreationPolicy
+import org.springframework.security.web.AuthenticationEntryPoint
 import org.springframework.security.web.SecurityFilterChain
+import org.springframework.security.web.access.AccessDeniedHandler
 import org.springframework.web.cors.CorsConfiguration
 import org.springframework.web.cors.CorsConfigurationSource
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 
 @Configuration
 @EnableWebSecurity
-class SecurityConfig(private val environment: Environment) {
+class SecurityConfig(
+    private val environment: Environment,
+    private val problemDetailAuthenticationEntryPoint: AuthenticationEntryPoint,
+    private val problemDetailAccessDeniedHandler: AccessDeniedHandler,
+) {
 
     @Bean
     fun filterChain(http: HttpSecurity): SecurityFilterChain {
@@ -33,7 +39,11 @@ class SecurityConfig(private val environment: Environment) {
                 authorize("/api/v1/public/**", permitAll)
                 authorize(anyRequest, authenticated)
             }
-            oauth2ResourceServer { jwt {} }
+            oauth2ResourceServer {
+                authenticationEntryPoint = problemDetailAuthenticationEntryPoint
+                jwt {}
+            }
+            exceptionHandling { accessDeniedHandler = problemDetailAccessDeniedHandler }
         }
         return http.build()
     }

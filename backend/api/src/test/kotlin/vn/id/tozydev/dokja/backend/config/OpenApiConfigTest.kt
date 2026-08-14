@@ -5,13 +5,10 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Test
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.test.context.junit.jupiter.SpringJUnitConfig
 
-@SpringJUnitConfig(OpenApiConfig::class)
 class OpenApiConfigTest {
 
-    @Autowired private lateinit var openApi: OpenAPI
+    private val openApi = OpenAPI().also { OpenApiConfig().customise(it) }
 
     @Test
     fun `spec metadata is configured`() {
@@ -26,6 +23,16 @@ class OpenApiConfigTest {
             .satisfies({ scheme ->
                 assertEquals("bearer", scheme!!.scheme)
                 assertEquals("JWT", scheme.bearerFormat)
+            })
+    }
+
+    @Test
+    fun `error code schema is registered for the generated client`() {
+        assertThat(openApi.components.schemas[OpenApiConfig.ERROR_CODE_SCHEMA])
+            .isNotNull
+            .satisfies({ schema ->
+                assertEquals("string", schema!!.type)
+                assertNotNull(schema.enum)
             })
     }
 }
