@@ -60,12 +60,12 @@ jobs:
         with:
           model: opencode-go/deepseek-v4-flash
           use-github-token: true
-          prompt: |
-            /review-pr
-            Prior to reviewing, perform a quick pre-analysis on the PR diff:
-              1. Identify the scope of changes (e.g. docs only, tests only, minor refactor, or core logic).
-              2. ONLY trigger sub-agents that are directly relevant to these changed files/aspects (e.g., skip security/performance checks if changes are purely documentation, tests, or trivial styling).
-              3. Proceed with the review using only those selected relevant sub-agents.
+          prompt: >-
+            /review-pr Identify the scope of changes (e.g. docs only, tests only, minor refactor, or
+            core logic) before proceeding with the review. ONLY trigger sub-agents that are directly
+            relevant to these changed files/aspects (e.g., skip security/performance checks if
+            changes are purely documentation, tests, or trivial styling). Then, proceed with the
+            review process with relevant sub-agents.
 
   opencode-bot:
     if: >
