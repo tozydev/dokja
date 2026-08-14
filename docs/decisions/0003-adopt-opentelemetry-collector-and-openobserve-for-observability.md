@@ -3,6 +3,9 @@ number: 3
 title: Adopt OpenTelemetry Collector and OpenObserve for observability
 status: accepted
 date: 2026-08-12
+links:
+  - target: 4
+    kind: relatesto
 ---
 
 # Adopt OpenTelemetry Collector and OpenObserve for observability
