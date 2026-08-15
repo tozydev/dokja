@@ -43,7 +43,7 @@ class AuditEventExportIntegrationTest {
 
     @Test
     fun `exports audit events as otlp log records`() {
-        val resourceId = UUID.randomUUID()
+        val resourceId = UUID.randomUUID().toString()
         try {
             SecurityContextHolder.getContext().authentication =
                 UsernamePasswordAuthenticationToken("user-123", null, emptyList())
@@ -70,4 +70,18 @@ class AuditEventExportIntegrationTest {
             )
         }
     }
+
+    @Test
+    fun `export failure does not fail the audited operation`() {
+        auditEventPublisher.publish(
+            action = "test_audit_action_export_failure",
+            resourceType = "test-resource",
+            resourceId = UUID.randomUUID().toString(),
+            after = UnserializableSnapshot(),
+        )
+    }
+}
+
+private class UnserializableSnapshot {
+    fun getValue(): String = throw IllegalStateException("boom")
 }

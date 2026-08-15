@@ -1,7 +1,9 @@
 package vn.id.tozydev.dokja.backend.audit
 
+import jakarta.persistence.EntityManager
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
+import kotlin.test.assertTrue
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -30,6 +32,8 @@ import vn.id.tozydev.dokja.testfixtures.AuditableTestEntityRepository
 class JpaAuditingIntegrationTest {
 
     @Autowired private lateinit var repository: AuditableTestEntityRepository
+
+    @Autowired private lateinit var entityManager: EntityManager
 
     @AfterEach
     fun cleanUp() {
@@ -60,18 +64,24 @@ class JpaAuditingIntegrationTest {
     @Test
     fun `updates modified metadata while preserving created metadata`() {
         authenticate("alice")
-        val created = repository.save(AuditableTestEntity(name = "C"))
-        val createdAt = created.createdAt
-        val createdBy = created.createdBy
+        val created = repository.saveAndFlush(AuditableTestEntity(name = "C"))
+
+        entityManager.clear()
+        val inserted = repository.findById(created.id!!).orElseThrow()
+        val createdAt = inserted.createdAt
+        val createdBy = inserted.createdBy
 
         authenticate("bob")
-        created.name = "C2"
-        repository.saveAndFlush(created)
+        inserted.name = "C2"
+        repository.saveAndFlush(inserted)
 
-        assertEquals(createdAt, created.createdAt)
-        assertEquals(createdBy, created.createdBy)
-        assertNotNull(created.updatedAt)
-        assertEquals("bob", created.updatedBy)
+        entityManager.clear()
+        val updated = repository.findById(created.id!!).orElseThrow()
+
+        assertEquals(createdAt, updated.createdAt)
+        assertEquals(createdBy, updated.createdBy)
+        assertEquals("bob", updated.updatedBy)
+        assertTrue(updated.updatedAt!!.isAfter(createdAt!!))
     }
 
     private fun authenticate(subject: String) {
