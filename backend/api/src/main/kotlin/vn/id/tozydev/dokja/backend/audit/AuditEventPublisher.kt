@@ -20,7 +20,7 @@ class AuditEventPublisher(
     fun publish(
         action: String,
         resourceType: String,
-        resourceId: Any? = null,
+        resourceId: String? = null,
         before: Any? = null,
         after: Any? = null,
     ) {

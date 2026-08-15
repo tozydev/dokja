@@ -8,7 +8,7 @@ data class AuditEvent(
     val actor: String,
     val action: String,
     val resourceType: String,
-    val resourceId: Any? = null,
+    val resourceId: String? = null,
     val before: Any? = null,
     val after: Any? = null,
     val sourceIp: String? = null,
