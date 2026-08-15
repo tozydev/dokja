@@ -1,1 +1,2 @@
 vn.id.tozydev.dokja.backend.error.TraceIdResolverAutoConfiguration
+vn.id.tozydev.dokja.backend.audit.JpaAuditingAutoConfiguration
