@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.core.env.Environment
 import org.springframework.core.env.Profiles
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.annotation.web.invoke
@@ -14,9 +15,11 @@ import org.springframework.security.web.access.AccessDeniedHandler
 import org.springframework.web.cors.CorsConfiguration
 import org.springframework.web.cors.CorsConfigurationSource
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource
+import vn.id.tozydev.dokja.backend.security.KcRealmRoleJwtAuthenticationConverter
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity
 class SecurityConfig(
     private val environment: Environment,
     private val problemDetailAuthenticationEntryPoint: AuthenticationEntryPoint,
@@ -41,7 +44,7 @@ class SecurityConfig(
             }
             oauth2ResourceServer {
                 authenticationEntryPoint = problemDetailAuthenticationEntryPoint
-                jwt {}
+                jwt { jwtAuthenticationConverter = KcRealmRoleJwtAuthenticationConverter() }
             }
             exceptionHandling { accessDeniedHandler = problemDetailAccessDeniedHandler }
         }
