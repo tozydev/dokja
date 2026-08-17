@@ -1,0 +1,13 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "references": {
+    "docs": {
+      "path": "../docs",
+      "description": "Project-wide documentation, contains PRD, architecture, and more"
+    },
+    "adr": {
+      "path": "../docs/decisions",
+      "description": "Use when working with architectural decisions"
+    }
+  }
+}
