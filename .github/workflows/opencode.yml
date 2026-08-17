@@ -58,7 +58,7 @@ jobs:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
         with:
-          model: opencode-go/deepseek-v4-flash
+          model: ${{ vars.OPENCODE_MODEL_REVIEW }}
           use-github-token: true
           prompt: >-
             /review-pr Identify the scope of changes (e.g. docs only, tests only, minor refactor, or
@@ -121,6 +121,6 @@ jobs:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
         with:
-          model: opencode-go/deepseek-v4-flash
+          model: ${{ vars.OPENCODE_MODEL_BOT }}
           use-github-token: true
           mentions: "@sohyol"
