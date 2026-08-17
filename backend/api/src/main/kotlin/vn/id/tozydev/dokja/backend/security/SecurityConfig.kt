@@ -42,7 +42,6 @@ class SecurityConfig(
                     "/api/admin/**",
                     hasAnyAuthority(*Role.adminRoles.map { it.authority }.toTypedArray()),
                 )
-                authorize("/api/v1/public/**", permitAll)
                 authorize(anyRequest, authenticated)
             }
             oauth2ResourceServer {

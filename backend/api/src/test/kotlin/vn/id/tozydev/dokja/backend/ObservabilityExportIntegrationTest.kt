@@ -22,6 +22,7 @@ import org.springframework.boot.opentelemetry.autoconfigure.logging.otlp.OtlpLog
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc
 import org.springframework.context.annotation.Import
+import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.jwt
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.bean.override.mockito.MockitoBean
 import org.springframework.test.web.servlet.MockMvc
@@ -84,19 +85,19 @@ class ObservabilityExportIntegrationTest {
 
     @Test
     fun `should export traces via OTLP`() {
-        mockMvc.get("/api/v1/public/observability-ping").andExpect { status { isOk() } }
+        mockMvc.get("/api/v1/observability-ping") { with(jwt()) }.andExpect { status { isOk() } }
 
         await().atMost(Duration.ofSeconds(30)).untilAsserted {
             assertTrue(
-                otelCollector.logs.contains("http get /api/v1/public/observability-ping"),
-                "expected exported span 'http get /api/v1/public/observability-ping', got:\n${otelCollector.logs}",
+                otelCollector.logs.contains("http get /api/v1/observability-ping"),
+                "expected exported span 'http get /api/v1/observability-ping', got:\n${otelCollector.logs}",
             )
         }
     }
 
     @Test
     fun `should export metrics via OTLP`() {
-        mockMvc.get("/api/v1/public/observability-ping").andExpect { status { isOk() } }
+        mockMvc.get("/api/v1/observability-ping") { with(jwt()) }.andExpect { status { isOk() } }
 
         await().atMost(Duration.ofSeconds(30)).untilAsserted {
             assertTrue(

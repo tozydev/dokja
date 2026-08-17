@@ -34,59 +34,48 @@ class SecurityConfigTest {
     @Autowired private lateinit var mockMvc: MockMvc
 
     @Test
-    fun `public endpoint permits unauthenticated request`() {
-        mockMvc.perform(get("/api/v1/public/ping")).andExpect(status().isOk)
-    }
-
-    @Test
-    fun `protected endpoint denies unauthenticated request`() {
+    fun `denies unauthenticated request to protected endpoint`() {
         mockMvc.perform(get("/api/v1/me")).andExpect(status().isUnauthorized)
     }
 
     @Test
-    fun `protected endpoint permits authenticated request`() {
+    fun `permits authenticated request to protected endpoint`() {
         mockMvc
             .perform(get("/api/v1/me").with(jwt().jwt { it.subject("user-123") }))
             .andExpect(status().isOk)
     }
 
     @Test
-    fun `moderator endpoint denies user without role`() {
+    fun `denies unauthenticated request to admin endpoint`() {
+        mockMvc.perform(get("/api/admin/test")).andExpect(status().isUnauthorized)
+    }
+
+    @Test
+    fun `denies non-admin role to admin endpoint`() {
         mockMvc
             .perform(
-                get("/api/v1/moderator/hello")
-                    .with(jwt().authorities(SimpleGrantedAuthority("ROLE_USER")))
+                get("/api/admin/test").with(jwt().authorities(SimpleGrantedAuthority("ROLE_USER")))
             )
             .andExpect(status().isForbidden)
     }
 
     @Test
-    fun `moderator endpoint permits user with moderator role`() {
+    fun `permits admin role to admin endpoint`() {
         mockMvc
             .perform(
-                get("/api/v1/moderator/hello")
+                get("/api/admin/test")
                     .with(jwt().authorities(SimpleGrantedAuthority("ROLE_MODERATOR")))
             )
             .andExpect(status().isOk)
     }
 
     @Test
-    fun `staff endpoint permits user with operation admin role`() {
+    fun `permits content manager role to admin endpoint`() {
         mockMvc
             .perform(
-                get("/api/v1/staff/hello")
-                    .with(jwt().authorities(SimpleGrantedAuthority("ROLE_OPERATION_ADMIN")))
+                get("/api/admin/test")
+                    .with(jwt().authorities(SimpleGrantedAuthority("ROLE_CONTENT_MANAGER")))
             )
             .andExpect(status().isOk)
-    }
-
-    @Test
-    fun `staff endpoint denies user without required role`() {
-        mockMvc
-            .perform(
-                get("/api/v1/staff/hello")
-                    .with(jwt().authorities(SimpleGrantedAuthority("ROLE_USER")))
-            )
-            .andExpect(status().isForbidden)
     }
 }
