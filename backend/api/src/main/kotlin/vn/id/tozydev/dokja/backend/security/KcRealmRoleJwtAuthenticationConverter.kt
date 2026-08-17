@@ -2,7 +2,6 @@ package vn.id.tozydev.dokja.backend.security
 
 import org.springframework.core.convert.converter.Converter
 import org.springframework.security.authentication.AbstractAuthenticationToken
-import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.oauth2.jwt.Jwt
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken
@@ -20,11 +19,8 @@ class KcRealmRoleJwtAuthenticationConverter : Converter<Jwt, AbstractAuthenticat
         JwtAuthenticationToken(jwt, jwt.authorities())
 }
 
-private fun Jwt.authorities(): MutableCollection<GrantedAuthority> =
-    realmRoles()
-        .mapNotNull { Role.fromRealmRole(it) }
-        .map { SimpleGrantedAuthority("ROLE_${it.name}") as GrantedAuthority }
-        .toMutableList()
+private fun Jwt.authorities() =
+    realmRoles().mapNotNull { Role.fromRealmRole(it) }.map { SimpleGrantedAuthority(it.authority) }
 
 private const val REALM_ACCESS_CLAIM = "realm_access"
 private const val ROLES_CLAIM = "roles"
