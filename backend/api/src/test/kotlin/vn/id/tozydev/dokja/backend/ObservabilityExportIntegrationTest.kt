@@ -84,19 +84,19 @@ class ObservabilityExportIntegrationTest {
 
     @Test
     fun `should export traces via OTLP`() {
-        mockMvc.get("/api/v1/public/hello").andExpect { status { isOk() } }
+        mockMvc.get("/api/v1/public/observability-ping").andExpect { status { isOk() } }
 
         await().atMost(Duration.ofSeconds(30)).untilAsserted {
             assertTrue(
-                otelCollector.logs.contains("http get /api/v1/public/hello"),
-                "expected exported span 'http get /api/v1/public/hello', got:\n${otelCollector.logs}",
+                otelCollector.logs.contains("http get /api/v1/public/observability-ping"),
+                "expected exported span 'http get /api/v1/public/observability-ping', got:\n${otelCollector.logs}",
             )
         }
     }
 
     @Test
     fun `should export metrics via OTLP`() {
-        mockMvc.get("/api/v1/public/hello").andExpect { status { isOk() } }
+        mockMvc.get("/api/v1/public/observability-ping").andExpect { status { isOk() } }
 
         await().atMost(Duration.ofSeconds(30)).untilAsserted {
             assertTrue(

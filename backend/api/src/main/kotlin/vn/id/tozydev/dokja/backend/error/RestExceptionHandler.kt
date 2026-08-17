@@ -5,6 +5,8 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.HttpStatusCode
 import org.springframework.http.ProblemDetail
 import org.springframework.http.ResponseEntity
+import org.springframework.security.access.AccessDeniedException
+import org.springframework.security.web.access.AccessDeniedHandler
 import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice
@@ -57,6 +59,15 @@ class RestExceptionHandler(private val problemDetailDecorator: ProblemDetailDeco
     ): ResponseEntity<Any>? {
         ex.body.setProperty(ProblemDetailDecorator.MEMBER_ERRORS, ex.toValidationErrors())
         return super.handleHandlerMethodValidationException(ex, headers, status, request)
+    }
+
+    /**
+     * Delegates handling of [AccessDeniedException] to Spring Security [AccessDeniedHandler]. This
+     * prevents duplicate security error handling.
+     */
+    @ExceptionHandler(AccessDeniedException::class)
+    fun handleAccessDenied(ex: AccessDeniedException) {
+        throw ex
     }
 
     @ExceptionHandler(Exception::class)
