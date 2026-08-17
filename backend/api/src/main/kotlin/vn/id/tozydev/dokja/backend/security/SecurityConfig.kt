@@ -38,6 +38,10 @@ class SecurityConfig(
                     authorize("/swagger-ui.html", permitAll)
                     authorize("/actuator/**", permitAll)
                 }
+                authorize(
+                    "/api/v1/admin/**",
+                    hasAnyAuthority(*Role.adminRoles.map { it.authority }.toTypedArray()),
+                )
                 authorize("/api/v1/public/**", permitAll)
                 authorize(anyRequest, authenticated)
             }
