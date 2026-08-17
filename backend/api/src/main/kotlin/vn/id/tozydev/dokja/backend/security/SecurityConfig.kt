@@ -1,4 +1,4 @@
-package vn.id.tozydev.dokja.backend.config
+package vn.id.tozydev.dokja.backend.security
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -15,7 +15,6 @@ import org.springframework.security.web.access.AccessDeniedHandler
 import org.springframework.web.cors.CorsConfiguration
 import org.springframework.web.cors.CorsConfigurationSource
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource
-import vn.id.tozydev.dokja.backend.security.KcRealmRoleJwtAuthenticationConverter
 
 @Configuration
 @EnableWebSecurity

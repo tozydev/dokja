@@ -28,7 +28,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.header
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
-import vn.id.tozydev.dokja.backend.config.SecurityConfig
+import vn.id.tozydev.dokja.backend.security.SecurityConfig
 
 @WebMvcTest(
     properties =
