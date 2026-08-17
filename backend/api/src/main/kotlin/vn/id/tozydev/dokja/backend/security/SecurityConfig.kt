@@ -39,7 +39,7 @@ class SecurityConfig(
                     authorize("/actuator/**", permitAll)
                 }
                 authorize(
-                    "/api/v1/admin/**",
+                    "/api/admin/**",
                     hasAnyAuthority(*Role.adminRoles.map { it.authority }.toTypedArray()),
                 )
                 authorize("/api/v1/public/**", permitAll)
