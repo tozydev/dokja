@@ -1,9 +1,10 @@
-package vn.id.tozydev.dokja.backend.config
+package vn.id.tozydev.dokja.backend.security
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.core.env.Environment
 import org.springframework.core.env.Profiles
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.annotation.web.invoke
@@ -17,6 +18,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity
 class SecurityConfig(
     private val environment: Environment,
     private val problemDetailAuthenticationEntryPoint: AuthenticationEntryPoint,
@@ -36,12 +38,15 @@ class SecurityConfig(
                     authorize("/swagger-ui.html", permitAll)
                     authorize("/actuator/**", permitAll)
                 }
-                authorize("/api/v1/public/**", permitAll)
+                authorize(
+                    "/api/admin/**",
+                    hasAnyAuthority(*Role.adminRoles.map { it.authority }.toTypedArray()),
+                )
                 authorize(anyRequest, authenticated)
             }
             oauth2ResourceServer {
                 authenticationEntryPoint = problemDetailAuthenticationEntryPoint
-                jwt {}
+                jwt { jwtAuthenticationConverter = KcRealmRoleJwtAuthenticationConverter() }
             }
             exceptionHandling { accessDeniedHandler = problemDetailAccessDeniedHandler }
         }
