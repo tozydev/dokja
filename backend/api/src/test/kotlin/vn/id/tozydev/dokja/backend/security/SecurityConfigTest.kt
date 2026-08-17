@@ -1,6 +1,8 @@
 package vn.id.tozydev.dokja.backend.security
 
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.MethodSource
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.json.AutoConfigureJson
 import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc
@@ -29,10 +31,7 @@ import vn.id.tozydev.dokja.backend.error.TraceIdResolverAutoConfiguration
 )
 @AutoConfigureMockMvc
 @AutoConfigureJson
-class SecurityConfigTest {
-
-    @Autowired private lateinit var mockMvc: MockMvc
-
+class SecurityConfigTest(@Autowired private val mockMvc: MockMvc) {
     @Test
     fun `denies unauthenticated request to protected endpoint`() {
         mockMvc.perform(get("/api/v1/me")).andExpect(status().isUnauthorized)
@@ -50,32 +49,28 @@ class SecurityConfigTest {
         mockMvc.perform(get("/api/admin/test")).andExpect(status().isUnauthorized)
     }
 
-    @Test
-    fun `denies non-admin role to admin endpoint`() {
+    @ParameterizedTest
+    @MethodSource("nonAdminAuthorities")
+    fun `denies non-admin role to admin endpoint`(authority: SimpleGrantedAuthority) {
         mockMvc
-            .perform(
-                get("/api/admin/test").with(jwt().authorities(SimpleGrantedAuthority("ROLE_USER")))
-            )
+            .perform(get("/api/admin/test").with(jwt().authorities(authority)))
             .andExpect(status().isForbidden)
     }
 
-    @Test
-    fun `permits admin role to admin endpoint`() {
+    @ParameterizedTest
+    @MethodSource("adminAuthorities")
+    fun `permits admin role to admin endpoint`(authority: SimpleGrantedAuthority) {
         mockMvc
-            .perform(
-                get("/api/admin/test")
-                    .with(jwt().authorities(SimpleGrantedAuthority("ROLE_MODERATOR")))
-            )
+            .perform(get("/api/admin/test").with(jwt().authorities(authority)))
             .andExpect(status().isOk)
     }
 
-    @Test
-    fun `permits content manager role to admin endpoint`() {
-        mockMvc
-            .perform(
-                get("/api/admin/test")
-                    .with(jwt().authorities(SimpleGrantedAuthority("ROLE_CONTENT_MANAGER")))
-            )
-            .andExpect(status().isOk)
+    companion object {
+        @JvmStatic
+        fun nonAdminAuthorities() =
+            Role.entries.filter { !it.isAdmin }.map { SimpleGrantedAuthority(it.authority) }
+
+        @JvmStatic
+        fun adminAuthorities() = Role.adminRoles.map { SimpleGrantedAuthority(it.authority) }
     }
 }
