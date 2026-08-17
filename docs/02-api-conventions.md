@@ -23,7 +23,7 @@ produced and consumed.
 - **Contract generated from backend code.** The OpenAPI 3.1 document is generated from the backend
   code (springdoc) and serves as the contract; the frontend generates a typed client from it (see
   [§11](#11-openapi-contract-tooling)).
-- **Versioned.** Endpoints live under `/api/v{version}` (public) and `/admin` (internal) (see
+- **Versioned.** Endpoints live under `/api/v{version}` (public) and `/api/admin` (internal) (see
   [§2.1](#21-api-zones)).
 - **Raw data on success, structured errors.** Success responses return the resource representation
   directly; errors follow a standard format (see [§5](#5-response-format)).
@@ -39,7 +39,7 @@ The API is split into two zones, each with its own base path:
 | Zone     | Base path        | Consumers           | Authentication                                          |
 | -------- | ---------------- | ------------------- | ------------------------------------------------------- |
 | Public   | `/api/{version}` | Web App, Mobile App | JWT bearer (see [§7](#7-authentication--authorization)) |
-| Internal | `/admin`         | Admin Portal        | JWT bearer + admin role                                 |
+| Internal | `/api/admin`     | Admin Portal        | JWT bearer + admin role                                 |
 
 - Public zone serves guest-facing and user-facing features (catalog, consumption, interaction,
   wallet, subscription, events, AI, notifications); internal zone serves management features
@@ -53,7 +53,8 @@ Public endpoints are prefixed with `/api/v{version}`. The current version is `v1
 - Versioning is **only** via the URL path. Never version via headers or media types.
 - Breaking changes require a new major version (`/api/v2`). Additive, backward-compatible changes do
   not.
-- The internal zone (`/admin`) is not versioned; it is deployed in lockstep with the Admin Portal.
+- The internal zone (`/api/admin`) is not versioned; it is deployed in lockstep with the Admin
+  Portal.
 
 ### 2.3 Resource Naming
 
