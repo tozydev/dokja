@@ -10,12 +10,15 @@ import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest
 import org.springframework.context.annotation.Import
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.jwt
+import org.springframework.test.context.bean.override.mockito.MockitoBean
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import vn.id.tozydev.dokja.backend.error.ProblemDetailDecorator
 import vn.id.tozydev.dokja.backend.error.SecurityErrorResponseConfig
 import vn.id.tozydev.dokja.backend.error.TraceIdResolverAutoConfiguration
+import vn.id.tozydev.dokja.backend.user.AgeClassifier
+import vn.id.tozydev.dokja.backend.user.web.KeycloakUserInfoClient
 
 @WebMvcTest(
     properties =
@@ -32,6 +35,9 @@ import vn.id.tozydev.dokja.backend.error.TraceIdResolverAutoConfiguration
 @AutoConfigureMockMvc
 @AutoConfigureJson
 class SecurityConfigTest(@Autowired private val mockMvc: MockMvc) {
+    @MockitoBean private lateinit var keycloakUserInfoClient: KeycloakUserInfoClient
+    @MockitoBean private lateinit var ageClassifier: AgeClassifier
+
     @Test
     fun `denies unauthenticated request to protected endpoint`() {
         mockMvc.perform(get("/api/v1/me")).andExpect(status().isUnauthorized)

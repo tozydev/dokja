@@ -39,6 +39,13 @@ spring:
     problemdetails:
       enabled: true
 
+  jackson:
+    datatype:
+      enum:
+        write-enums-to-lowercase: true
+    mapper:
+      accept-case-insensitive-enums: true
+
 app:
   storage:
     s3:
