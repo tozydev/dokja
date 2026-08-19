@@ -3,8 +3,10 @@ package vn.id.tozydev.dokja.backend.user
 import java.time.Clock
 import java.time.LocalDate
 import java.time.Period
+import java.time.format.DateTimeParseException
 import org.springframework.security.core.context.SecurityContextHolder
-import org.springframework.security.oauth2.core.oidc.user.OidcUser
+import org.springframework.security.oauth2.core.oidc.StandardClaimNames
+import org.springframework.security.oauth2.jwt.Jwt
 import org.springframework.stereotype.Component
 
 /**
@@ -41,8 +43,12 @@ class AgeClassifier(private val clock: Clock) {
     }
 
     private fun extractBirthdateFromContext(): LocalDate? {
-        val user =
-            SecurityContextHolder.getContext().authentication?.principal as? OidcUser ?: return null
-        return user.userInfo?.birthdate?.let { LocalDate.parse(it) }
+        val jwt =
+            SecurityContextHolder.getContext().authentication?.principal as? Jwt ?: return null
+        return try {
+            jwt.getClaimAsString(StandardClaimNames.BIRTHDATE)?.let { LocalDate.parse(it) }
+        } catch (_: DateTimeParseException) {
+            null
+        }
     }
 }
